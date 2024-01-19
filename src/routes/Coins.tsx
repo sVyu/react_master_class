@@ -16,6 +16,7 @@ const Header = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 `;
 
 const CoinsList = styled.ul``;
@@ -54,6 +55,17 @@ const Img = styled.img`
   margin-right: 10px;
 `;
 
+export const ToggleThemeButton = styled.button`
+  position: absolute;
+  right: 0px;
+  top: 10px;
+  background-color: ${(props) => props.theme.accentColor};
+  height: 25px;
+  border-radius: 5px;
+  border-color: transparent;
+  cursor: pointer;
+`;
+
 interface ICoin {
   id: string;
   name: string;
@@ -79,12 +91,14 @@ const Coins = ({ onChangeTheme }: CoinsProps) => {
       </Helmet>
       <Header>
         <Title>Coins</Title>
+        <ToggleThemeButton onClick={onChangeTheme}>
+          toggleTheme
+        </ToggleThemeButton>
       </Header>
       {isLoading ? (
         <Loader>Loading...</Loader>
       ) : (
         <>
-          <button onClick={onChangeTheme}>toggle Theme</button>
           <CoinsList>
             {data?.slice(0, 100).map((coin) => (
               <Coin key={coin.id}>

@@ -14,6 +14,7 @@ import { Chart } from './Chart';
 import { defaultStaleTime } from '../utils';
 import { Price } from './Price';
 import { DefaultTheme } from 'styled-components';
+import { ToggleThemeButton } from './Coins';
 
 const Title = styled.h1`
   font-size: 48px;
@@ -36,6 +37,7 @@ const Header = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 `;
 
 const Overview = styled.div`
@@ -80,6 +82,27 @@ const Tab = styled.span<{ $isActive: boolean }>`
   a {
     padding: 7px 0px;
     display: block;
+  }
+`;
+
+const GoToCoinsPageButton = styled.button`
+  position: absolute;
+  top: 10px;
+  left: 0px;
+  background-color: transparent;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  width: 40px;
+  height: 25px;
+  & > a {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 `;
 
@@ -177,21 +200,23 @@ export const Coin = ({ theme, onChangeTheme }: CoinProps) => {
         <Title>
           {state?.name ? state.name : loading ? 'Loading...' : infoData?.name}
         </Title>
+        <ToggleThemeButton onClick={onChangeTheme}>
+          toggleTheme
+        </ToggleThemeButton>
+        <GoToCoinsPageButton>
+          <Link
+            to={{
+              pathname: `/crypto_tracker_clone`,
+            }}
+          >
+            ←
+          </Link>
+        </GoToCoinsPageButton>
       </Header>
       {loading ? (
         <Loader>Loading...</Loader>
       ) : (
         <>
-          <button onClick={onChangeTheme}>toggle Theme</button>
-          <button>
-            <Link
-              to={{
-                pathname: `/crypto_tracker_clone`,
-              }}
-            >
-              GoToCoinsPage
-            </Link>
-          </button>
           <Overview>
             <OverviewItem>
               <span>Rank:</span>
