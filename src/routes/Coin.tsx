@@ -10,9 +10,10 @@ import {
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { fetchCoinInfo, fetchCoinTickers } from '../api';
-import Chart from './Chart';
+import { Chart } from './Chart';
 import { defaultStaleTime } from '../utils';
 import { Price } from './Price';
+import { DefaultTheme } from 'styled-components';
 
 const Title = styled.h1`
   font-size: 48px;
@@ -143,10 +144,11 @@ export interface PriceData {
 }
 
 interface CoinProps {
+  theme?: DefaultTheme;
   onChangeTheme: () => void;
 }
 
-export const Coin = ({ onChangeTheme }: CoinProps) => {
+export const Coin = ({ theme, onChangeTheme }: CoinProps) => {
   const { coinId } = useParams<RouteParams>();
   const { state } = useLocation<RouteState>();
   const priceMatch = useRouteMatch('/crypto_tracker_clone/:coinId/price');
@@ -227,7 +229,7 @@ export const Coin = ({ onChangeTheme }: CoinProps) => {
 
           <Switch>
             <Route path={`/crypto_tracker_clone/:coinId/chart`}>
-              <Chart coinId={coinId} />
+              <Chart theme={theme} coinId={coinId} />
             </Route>
             <Route path={`/crypto_tracker_clone/:coinId/price`}>
               <Price tickersData={tickersData} />

@@ -15,7 +15,7 @@ export const App = () => {
     <>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <Router onChangeTheme={handleChangeTheme} />
+        <Router theme={theme} onChangeTheme={handleChangeTheme} />
       </ThemeProvider>
       {/* <ReactQueryDevtools initialIsOpen={true} /> */}
     </>
