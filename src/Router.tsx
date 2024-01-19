@@ -20,6 +20,7 @@ const Router = ({ theme, onChangeTheme }: RouterProps) => {
           path="/crypto_tracker_clone"
           element={<Coins onChangeTheme={onChangeTheme} />}
         ></Route>
+        <Route path="test" element={<div>test</div>}></Route>
         <Route path="/" element={<div>coming soon !!!</div>}></Route>
       </Routes>
     </BrowserRouter>
