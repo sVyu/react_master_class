@@ -4,6 +4,7 @@ import ApexChart from 'react-apexcharts';
 import { defaultStaleTime } from '../utils';
 import { DefaultTheme } from 'styled-components';
 import { WhiteTheme } from '../theme';
+import { useLocation } from 'react-router-dom';
 
 interface IHistorical {
   time_open: string;
@@ -17,9 +18,12 @@ interface IHistorical {
 }
 interface ChartProps {
   theme?: DefaultTheme;
-  coinId: string;
 }
-export const Chart = ({ theme, coinId }: ChartProps) => {
+
+export const Chart = ({ theme }: ChartProps) => {
+  const {
+    state: { coinId },
+  } = useLocation();
   const { isLoading, data } = useQuery<IHistorical[]>(
     ['ohlcv', coinId],
     () => fetchCoinHistory(coinId),

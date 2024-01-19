@@ -104,9 +104,9 @@ const Coins = ({ onChangeTheme }: CoinsProps) => {
               <Coin key={coin.id}>
                 <Link
                   to={{
-                    pathname: `/react_master_class/crypto_tracker_clone/${coin.id}`,
-                    state: { name: coin.name },
+                    pathname: `/crypto_tracker_clone/${coin.id}`,
                   }}
+                  state={{ name: coin.name }}
                 >
                   <Img
                     src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`}

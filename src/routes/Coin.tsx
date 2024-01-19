@@ -1,12 +1,6 @@
 import { useQuery } from 'react-query';
 import { Helmet } from 'react-helmet';
-import {
-  Switch,
-  Route,
-  useLocation,
-  useParams,
-  useRouteMatch,
-} from 'react-router-dom';
+import { Route, Routes, useLocation, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { fetchCoinInfo, fetchCoinTickers } from '../api';
@@ -15,6 +9,7 @@ import { defaultStaleTime } from '../utils';
 import { Price } from './Price';
 import { DefaultTheme } from 'styled-components';
 import { ToggleThemeButton } from './Coins';
+import { useMatch } from 'react-router-dom';
 
 const Title = styled.h1`
   font-size: 48px;
@@ -109,9 +104,9 @@ const GoToCoinsPageButton = styled.button`
 interface RouteParams {
   coinId: string;
 }
-interface RouteState {
-  name: string;
-}
+// interface RouteState {
+//   name: string;
+// }
 interface InfoData {
   id: string;
   name: string;
@@ -172,14 +167,10 @@ interface CoinProps {
 }
 
 export const Coin = ({ theme, onChangeTheme }: CoinProps) => {
-  const { coinId } = useParams<RouteParams>();
-  const { state } = useLocation<RouteState>();
-  const priceMatch = useRouteMatch(
-    '/react_master_class/crypto_tracker_clone/:coinId/price'
-  );
-  const chartMatch = useRouteMatch(
-    '/react_master_class/crypto_tracker_clone/:coinId/chart'
-  );
+  const { coinId } = useParams() as unknown as RouteParams;
+  const { state } = useLocation();
+  const priceMatch = useMatch('/crypto_tracker_clone/:coinId/price');
+  const chartMatch = useMatch('/crypto_tracker_clone/:coinId/chart');
 
   const { isLoading: infoLoading, data: infoData } = useQuery<InfoData>(
     ['info', coinId],
@@ -210,7 +201,7 @@ export const Coin = ({ theme, onChangeTheme }: CoinProps) => {
         <GoToCoinsPageButton>
           <Link
             to={{
-              pathname: `/react_master_class/crypto_tracker_clone`,
+              pathname: `/crypto_tracker_clone`,
             }}
           >
             ←
@@ -250,32 +241,29 @@ export const Coin = ({ theme, onChangeTheme }: CoinProps) => {
           <Tabs>
             <Tab $isActive={chartMatch !== null}>
               <Link
-                to={`/react_master_class/crypto_tracker_clone/${coinId}/chart`}
+                to={`/crypto_tracker_clone/${coinId}/chart`}
+                state={{ coinId: coinId }}
               >
-                Chart
+                Chartaaa
               </Link>
             </Tab>
             <Tab $isActive={priceMatch !== null}>
               <Link
-                to={`/react_master_class/crypto_tracker_clone/${coinId}/price`}
+                to={`/crypto_tracker_clone/${coinId}/price`}
+                state={{ coinId: coinId }}
               >
                 Price
               </Link>
             </Tab>
           </Tabs>
 
-          <Switch>
+          <Routes>
+            <Route path={`chart`} element={<Chart theme={theme} />}></Route>
             <Route
-              path={`/react_master_class/crypto_tracker_clone/:coinId/chart`}
-            >
-              <Chart theme={theme} coinId={coinId} />
-            </Route>
-            <Route
-              path={`/react_master_class/crypto_tracker_clone/:coinId/price`}
-            >
-              <Price tickersData={tickersData} />
-            </Route>
-          </Switch>
+              path={`price`}
+              element={<Price tickersData={tickersData} />}
+            ></Route>
+          </Routes>
         </>
       )}
     </Container>
