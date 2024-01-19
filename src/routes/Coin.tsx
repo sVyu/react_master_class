@@ -11,8 +11,8 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { fetchCoinInfo, fetchCoinTickers } from '../api';
 import Chart from './Chart';
-import Price from './Price';
 import { defaultStaleTime } from '../utils';
+import { Price } from './Price';
 
 const Title = styled.h1`
   font-size: 48px;
@@ -108,7 +108,7 @@ interface InfoData {
   first_data_at: string;
   last_data_at: string;
 }
-interface PriceData {
+export interface PriceData {
   id: string;
   name: string;
   symbol: string;
@@ -162,6 +162,7 @@ export const Coin = ({ onChangeTheme }: CoinProps) => {
     () => fetchCoinTickers(coinId),
     { staleTime: defaultStaleTime }
   );
+
   const loading = infoLoading || tickersLoading;
   return (
     <Container>
@@ -225,11 +226,11 @@ export const Coin = ({ onChangeTheme }: CoinProps) => {
           </Tabs>
 
           <Switch>
-            <Route path={`/crypto_tracker_clone/:coinId/price`}>
-              <Price />
-            </Route>
             <Route path={`/crypto_tracker_clone/:coinId/chart`}>
               <Chart coinId={coinId} />
+            </Route>
+            <Route path={`/crypto_tracker_clone/:coinId/price`}>
+              <Price tickersData={tickersData} />
             </Route>
           </Switch>
         </>
