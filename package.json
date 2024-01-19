@@ -50,7 +50,7 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://svyu.github.io/react_master_class",
+  "homepage": "https://sVyu.github.io/react_master_class",
   "devDependencies": {
     "@tanstack/react-query-devtools": "^5.17.18",
     "@types/react-helmet": "^6.1.11",
