@@ -180,6 +180,15 @@ export const Coin = ({ onChangeTheme }: CoinProps) => {
       ) : (
         <>
           <button onClick={onChangeTheme}>toggle Theme</button>
+          <button>
+            <Link
+              to={{
+                pathname: `/crypto_tracker_clone`,
+              }}
+            >
+              GoToCoinsPage
+            </Link>
+          </button>
           <Overview>
             <OverviewItem>
               <span>Rank:</span>
