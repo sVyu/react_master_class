@@ -32,6 +32,7 @@ export const Chart = ({ theme, coinId }: ChartProps) => {
         <div>'Loading chart...'</div>
       ) : (
         <ApexChart
+          key={Math.random()}
           type="candlestick"
           series={[
             {
