@@ -12,14 +12,20 @@ const Router = ({ theme, onChangeTheme }: RouterProps) => {
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Switch>
-        <Route path="/crypto_tracker_clone/:coinId">
+        <Route path="/react_master_class/crypto_tracker_clone/:coinId">
           <Coin theme={theme} onChangeTheme={onChangeTheme} />
         </Route>
-        <Route path="/crypto_tracker_clone">
+        <Route path="/react_master_class/crypto_tracker_clone">
           <Coins onChangeTheme={onChangeTheme} />
         </Route>
+        <Route path="/react_master_class/hmm/">
+          <div>hmm</div>
+        </Route>
+        <Route path="/react_master_class">
+          <div>page test ..!!</div>
+        </Route>
         <Route path="/">
-          <div>deploy test ... ?!?!</div>
+          <div>root test</div>
         </Route>
       </Switch>
     </BrowserRouter>

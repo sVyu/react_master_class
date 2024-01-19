@@ -104,7 +104,7 @@ const Coins = ({ onChangeTheme }: CoinsProps) => {
               <Coin key={coin.id}>
                 <Link
                   to={{
-                    pathname: `/crypto_tracker_clone/${coin.id}`,
+                    pathname: `/react_master_class/crypto_tracker_clone/${coin.id}`,
                     state: { name: coin.name },
                   }}
                 >

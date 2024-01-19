@@ -174,8 +174,12 @@ interface CoinProps {
 export const Coin = ({ theme, onChangeTheme }: CoinProps) => {
   const { coinId } = useParams<RouteParams>();
   const { state } = useLocation<RouteState>();
-  const priceMatch = useRouteMatch('/crypto_tracker_clone/:coinId/price');
-  const chartMatch = useRouteMatch('/crypto_tracker_clone/:coinId/chart');
+  const priceMatch = useRouteMatch(
+    '/react_master_class/crypto_tracker_clone/:coinId/price'
+  );
+  const chartMatch = useRouteMatch(
+    '/react_master_class/crypto_tracker_clone/:coinId/chart'
+  );
 
   const { isLoading: infoLoading, data: infoData } = useQuery<InfoData>(
     ['info', coinId],
@@ -206,7 +210,7 @@ export const Coin = ({ theme, onChangeTheme }: CoinProps) => {
         <GoToCoinsPageButton>
           <Link
             to={{
-              pathname: `/crypto_tracker_clone`,
+              pathname: `/react_master_class/crypto_tracker_clone`,
             }}
           >
             ←
@@ -245,18 +249,30 @@ export const Coin = ({ theme, onChangeTheme }: CoinProps) => {
 
           <Tabs>
             <Tab $isActive={chartMatch !== null}>
-              <Link to={`/crypto_tracker_clone/${coinId}/chart`}>Chart</Link>
+              <Link
+                to={`/react_master_class/crypto_tracker_clone/${coinId}/chart`}
+              >
+                Chart
+              </Link>
             </Tab>
             <Tab $isActive={priceMatch !== null}>
-              <Link to={`/crypto_tracker_clone/${coinId}/price`}>Price</Link>
+              <Link
+                to={`/react_master_class/crypto_tracker_clone/${coinId}/price`}
+              >
+                Price
+              </Link>
             </Tab>
           </Tabs>
 
           <Switch>
-            <Route path={`/crypto_tracker_clone/:coinId/chart`}>
+            <Route
+              path={`/react_master_class/crypto_tracker_clone/:coinId/chart`}
+            >
               <Chart theme={theme} coinId={coinId} />
             </Route>
-            <Route path={`/crypto_tracker_clone/:coinId/price`}>
+            <Route
+              path={`/react_master_class/crypto_tracker_clone/:coinId/price`}
+            >
               <Price tickersData={tickersData} />
             </Route>
           </Switch>
