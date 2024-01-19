@@ -75,10 +75,10 @@ const Coins = ({ onChangeTheme }: CoinsProps) => {
   return (
     <Container>
       <Helmet>
-        <title>코인</title>
+        <title>Coins</title>
       </Helmet>
       <Header>
-        <Title>코인</Title>
+        <Title>Coins</Title>
       </Header>
       {isLoading ? (
         <Loader>Loading...</Loader>
