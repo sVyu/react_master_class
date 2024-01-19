@@ -12,6 +12,7 @@ import styled from 'styled-components';
 import { fetchCoinInfo, fetchCoinTickers } from '../api';
 import Chart from './Chart';
 import Price from './Price';
+import { defaultStaleTime } from '../utils';
 
 const Title = styled.h1`
   font-size: 48px;
@@ -148,14 +149,13 @@ function Coin() {
   const chartMatch = useRouteMatch('/:coinId/chart');
   const { isLoading: infoLoading, data: infoData } = useQuery<InfoData>(
     ['info', coinId],
-    () => fetchCoinInfo(coinId)
+    () => fetchCoinInfo(coinId),
+    { staleTime: defaultStaleTime }
   );
   const { isLoading: tickersLoading, data: tickersData } = useQuery<PriceData>(
     ['tickers', coinId],
     () => fetchCoinTickers(coinId),
-    {
-      refetchInterval: 5000,
-    }
+    { staleTime: defaultStaleTime }
   );
   const loading = infoLoading || tickersLoading;
   return (
