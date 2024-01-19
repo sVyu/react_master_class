@@ -9,7 +9,7 @@ const Router = () => {
         <Route path="/crypto_tracker_clone/:coinId">
           <Coin />
         </Route>
-        <Route path="/crypto_tracker_clone/">
+        <Route path="/crypto_tracker_clone">
           <Coins />
         </Route>
       </Switch>

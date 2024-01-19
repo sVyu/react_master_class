@@ -1,5 +1,5 @@
 function Price() {
-  return <h1>Price</h1>;
+  return <h1 style={{ backgroundColor: 'yellow' }}>Price</h1>;
 }
 
 export default Price;
