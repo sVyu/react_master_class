@@ -244,7 +244,7 @@ export const Coin = ({ theme, onChangeTheme }: CoinProps) => {
                 to={`/crypto_tracker_clone/${coinId}/chart`}
                 state={{ coinId: coinId }}
               >
-                Chartaaa
+                Chart
               </Link>
             </Tab>
             <Tab $isActive={priceMatch !== null}>
