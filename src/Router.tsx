@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 import Coin from './routes/Coin';
 import Coins from './routes/Coins';
 import { DefaultTheme } from 'styled-components/dist/types';
@@ -10,7 +10,7 @@ interface RouterProps {
 
 const Router = ({ theme, onChangeTheme }: RouterProps) => {
   return (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <HashRouter>
       <Routes>
         <Route
           path="/crypto_tracker_clone/:coinId/*"
@@ -23,7 +23,7 @@ const Router = ({ theme, onChangeTheme }: RouterProps) => {
         <Route path="test" element={<div>test</div>}></Route>
         <Route path="/" element={<div>coming soon !!!</div>}></Route>
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 export default Router;
