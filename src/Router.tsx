@@ -10,7 +10,6 @@ interface RouterProps {
 
 const Router = ({ theme, onChangeTheme }: RouterProps) => {
   return (
-    // <BrowserRouter>
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Switch>
         <Route path="/crypto_tracker_clone/:coinId">
@@ -18,6 +17,9 @@ const Router = ({ theme, onChangeTheme }: RouterProps) => {
         </Route>
         <Route path="/crypto_tracker_clone">
           <Coins onChangeTheme={onChangeTheme} />
+        </Route>
+        <Route path="/">
+          <div>deploy test ... ?!?!</div>
         </Route>
       </Switch>
     </BrowserRouter>
