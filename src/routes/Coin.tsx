@@ -40,7 +40,7 @@ const Header = styled.header`
 const Overview = styled.div`
   display: flex;
   justify-content: space-between;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${(props) => props.theme.blockColor};
   padding: 10px 20px;
   border-radius: 10px;
 `;
@@ -72,7 +72,7 @@ const Tab = styled.span<{ $isActive: boolean }>`
   text-transform: uppercase;
   font-size: 12px;
   font-weight: 400;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${(props) => props.theme.blockColor};
   border-radius: 10px;
   color: ${(props) =>
     props.$isActive ? props.theme.accentColor : props.theme.textColor};
@@ -142,7 +142,11 @@ interface PriceData {
   };
 }
 
-function Coin() {
+interface CoinProps {
+  onChangeTheme: () => void;
+}
+
+export const Coin = ({ onChangeTheme }: CoinProps) => {
   const { coinId } = useParams<RouteParams>();
   const { state } = useLocation<RouteState>();
   const priceMatch = useRouteMatch('/crypto_tracker_clone/:coinId/price');
@@ -175,6 +179,7 @@ function Coin() {
         <Loader>Loading...</Loader>
       ) : (
         <>
+          <button onClick={onChangeTheme}>toggle Theme</button>
           <Overview>
             <OverviewItem>
               <span>Rank:</span>
@@ -222,5 +227,5 @@ function Coin() {
       )}
     </Container>
   );
-}
+};
 export default Coin;

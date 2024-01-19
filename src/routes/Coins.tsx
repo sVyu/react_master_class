@@ -21,8 +21,8 @@ const Header = styled.header`
 const CoinsList = styled.ul``;
 
 const Coin = styled.li`
-  background-color: white;
-  color: ${(props) => props.theme.bgColor};
+  background-color: ${(props) => props.theme.blockColor};
+  color: ${(props) => props.theme.textColor};
   border-radius: 15px;
   margin-bottom: 10px;
   a {
@@ -64,7 +64,11 @@ interface ICoin {
   type: string;
 }
 
-function Coins() {
+interface CoinsProps {
+  onChangeTheme: () => void;
+}
+
+const Coins = ({ onChangeTheme }: CoinsProps) => {
   const { isLoading, data } = useQuery<ICoin[]>('allCoins', fetchCoins, {
     staleTime: defaultStaleTime,
   });
@@ -79,25 +83,28 @@ function Coins() {
       {isLoading ? (
         <Loader>Loading...</Loader>
       ) : (
-        <CoinsList>
-          {data?.slice(0, 100).map((coin) => (
-            <Coin key={coin.id}>
-              <Link
-                to={{
-                  pathname: `/crypto_tracker_clone/${coin.id}`,
-                  state: { name: coin.name },
-                }}
-              >
-                <Img
-                  src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`}
-                />
-                {coin.name} &rarr;
-              </Link>
-            </Coin>
-          ))}
-        </CoinsList>
+        <>
+          <button onClick={onChangeTheme}>toggle Theme</button>
+          <CoinsList>
+            {data?.slice(0, 100).map((coin) => (
+              <Coin key={coin.id}>
+                <Link
+                  to={{
+                    pathname: `/crypto_tracker_clone/${coin.id}`,
+                    state: { name: coin.name },
+                  }}
+                >
+                  <Img
+                    src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`}
+                  />
+                  {coin.name} &rarr;
+                </Link>
+              </Coin>
+            ))}
+          </CoinsList>
+        </>
       )}
     </Container>
   );
-}
+};
 export default Coins;

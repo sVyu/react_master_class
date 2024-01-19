@@ -2,15 +2,19 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Coin from './routes/Coin';
 import Coins from './routes/Coins';
 
-const Router = () => {
+interface RouterProps {
+  onChangeTheme: () => void;
+}
+
+const Router = ({ onChangeTheme }: RouterProps) => {
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/crypto_tracker_clone/:coinId">
-          <Coin />
+          <Coin onChangeTheme={onChangeTheme} />
         </Route>
         <Route path="/crypto_tracker_clone">
-          <Coins />
+          <Coins onChangeTheme={onChangeTheme} />
         </Route>
       </Switch>
     </BrowserRouter>
