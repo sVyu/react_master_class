@@ -1,4 +1,4 @@
-import { atom, selector, useRecoilValue } from 'recoil';
+import { atom } from 'recoil';
 
 // export enum Categories {
 //   'TO_DO' = 'TO_DO',

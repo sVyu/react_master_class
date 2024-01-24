@@ -1,40 +1,39 @@
-// import React from 'react';
-// import { useSetRecoilState } from 'recoil';
-// import { Categories, IToDo, toDoState } from '../atoms';
+import React from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { IToDo, categoryToDosMapState, selectedCategoryState } from '../atoms';
 
-// function ToDo({ text, category, id }: IToDo) {
-//   const setToDos = useSetRecoilState(toDoState);
-//   const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-//     const {
-//       currentTarget: { name },
-//     } = event;
-//     setToDos((oldToDos) => {
-//       const targetIndex = oldToDos.findIndex((toDo) => toDo.id === id);
-//       const newToDo = { text, id, category: name as any };
-//       return [...oldToDos.slice(0, targetIndex), newToDo, ...oldToDos.slice(targetIndex + 1)];
-//     });
-//   };
-//   return (
-//     <li>
-//       <span>{text}</span>
-//       {category !== Categories.DOING && (
-//         <button name={Categories.DOING} onClick={onClick}>
-//           Doing
-//         </button>
-//       )}
-//       {category !== Categories.TO_DO && (
-//         <button name={Categories.TO_DO} onClick={onClick}>
-//           To Do
-//         </button>
-//       )}
-//       {category !== Categories.DONE && (
-//         <button name={Categories.DONE} onClick={onClick}>
-//           Done
-//         </button>
-//       )}
-//     </li>
-//   );
-// }
+export const ToDo = ({ id, text }: IToDo) => {
+  const [categoryToDosMap, setCategoryToDosMap] = useRecoilState(
+    categoryToDosMapState
+  );
+  const selectedCategory = useRecoilValue(selectedCategoryState);
 
-// export default ToDo;
-export {};
+  const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const {
+      currentTarget: { name: targetCategory },
+    } = event;
+    const deletedToDos: IToDo[] = categoryToDosMap[selectedCategory].filter(
+      (toDo) => toDo.id !== id
+    );
+    const TargetToDos: IToDo[] = categoryToDosMap[targetCategory];
+    const addedToDos: IToDo[] = [...TargetToDos, { id, text }];
+
+    setCategoryToDosMap({
+      ...categoryToDosMap,
+      [selectedCategory]: deletedToDos,
+      [targetCategory]: addedToDos,
+    });
+  };
+  return (
+    <li>
+      <span>{text}</span>
+      {Object.entries(categoryToDosMap)
+        .filter(([category]) => category !== selectedCategory)
+        .map(([category]) => (
+          <button name={category} onClick={onClick}>
+            {category}
+          </button>
+        ))}
+    </li>
+  );
+};

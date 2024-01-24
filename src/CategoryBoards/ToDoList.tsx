@@ -3,9 +3,9 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { categoryToDosMapState, selectedCategoryState } from '../atoms';
 import { CreateCategory } from './CreateCategory';
 import { CreateToDo } from './CreateToDo';
+import { ToDo } from './ToDo';
 
 function ToDoList() {
-  // const toDos = useRecoilValue(toDoSelector);
   const [selectedCategory, setSelectedCategory] = useRecoilState(
     selectedCategoryState
   );
@@ -37,9 +37,9 @@ function ToDoList() {
         ))}
       </select>
       <CreateToDo />
-      {/* {toDos?.map((toDo) => (
+      {categoryToDosMap[selectedCategory]?.map((toDo) => (
         <ToDo key={toDo.id} {...toDo} />
-      ))} */}
+      ))}
     </div>
   );
 }
