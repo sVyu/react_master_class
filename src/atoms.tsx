@@ -1,4 +1,5 @@
 import { atom } from 'recoil';
+import { recoilPersist } from 'recoil-persist';
 
 // export enum Categories {
 //   'TO_DO' = 'TO_DO',
@@ -16,11 +17,14 @@ export interface ICategoryToDosMap {
 
 const defaultCategories = ['TO_DO', 'DOING', 'DONE'];
 
+const { persistAtom } = recoilPersist();
+
 export const categoryToDosMapState = atom<ICategoryToDosMap>({
   key: 'categoryToDosMap',
   default: defaultCategories.reduce((acc, category) => {
     return { ...acc, [category]: [] };
   }, {}),
+  effects_UNSTABLE: [persistAtom],
 });
 
 export const selectedCategoryState = atom<string>({
