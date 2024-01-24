@@ -5,7 +5,7 @@ import { CreateCategory } from './CreateCategory';
 import { CreateToDo } from './CreateToDo';
 import { ToDo } from './ToDo';
 
-function ToDoList() {
+export const ToDoList = () => {
   const [selectedCategory, setSelectedCategory] = useRecoilState(
     selectedCategoryState
   );
@@ -14,8 +14,7 @@ function ToDoList() {
     setSelectedCategory(event.currentTarget.value as any);
   };
 
-  // console.log('categoryToDosMap', categoryToDosMap);
-  // console.log('selectedCategory', selectedCategory);
+  console.log('categoryToDosMap', categoryToDosMap);
   useEffect(() => {
     if (Object.keys(categoryToDosMap).length) {
       setSelectedCategory(Object.keys(categoryToDosMap)[0]);
@@ -42,6 +41,4 @@ function ToDoList() {
       ))}
     </div>
   );
-}
-
-export default ToDoList;
+};
