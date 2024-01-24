@@ -1,31 +1,43 @@
-import { atom, selector } from "recoil";
+import { atom, selector, useRecoilValue } from 'recoil';
 
-export enum Categories {
-  "TO_DO" = "TO_DO",
-  "DOING" = "DOING",
-  "DONE" = "DONE",
-}
+// export enum Categories {
+//   'TO_DO' = 'TO_DO',
+//   'DOING' = 'DOING',
+//   'DONE' = 'DONE',
+// }
+
 export interface IToDo {
-  text: string;
   id: number;
-  category: Categories;
+  text: string;
+}
+export interface IToDosWithCategory {
+  [key: string]: IToDo[];
 }
 
-export const categoryState = atom<Categories>({
-  key: "category",
-  default: Categories.TO_DO,
+export const defaultCategories = ['TO_DO', 'DOING', 'DONE'];
+
+export const categoriesState = atom<IToDosWithCategory>({
+  key: 'categories',
+  default: defaultCategories.reduce((acc, category) => {
+    return { ...acc, [category]: [] };
+  }, {}),
+});
+
+export const selectedCategoryState = atom<string>({
+  key: 'selectedCategory',
+  default: '',
 });
 
 export const toDoState = atom<IToDo[]>({
-  key: "toDo",
+  key: 'toDo',
   default: [],
 });
 
 export const toDoSelector = selector({
-  key: "toDoSelector",
+  key: 'toDoSelector',
   get: ({ get }) => {
-    const toDos = get(toDoState);
-    const category = get(categoryState);
-    return toDos.filter((toDo) => toDo.category === category);
+    const categories = get(categoriesState);
+    const selectedCategory = get(selectedCategoryState);
+    return categories[selectedCategory];
   },
 });
