@@ -10,14 +10,14 @@ export interface IToDo {
   id: number;
   text: string;
 }
-export interface IToDosWithCategory {
+export interface ICategoryToDosMap {
   [key: string]: IToDo[];
 }
 
-export const defaultCategories = ['TO_DO', 'DOING', 'DONE'];
+const defaultCategories = ['TO_DO', 'DOING', 'DONE'];
 
-export const categoriesState = atom<IToDosWithCategory>({
-  key: 'categories',
+export const categoryToDosMapState = atom<ICategoryToDosMap>({
+  key: 'categoryToDosMap',
   default: defaultCategories.reduce((acc, category) => {
     return { ...acc, [category]: [] };
   }, {}),
@@ -28,16 +28,16 @@ export const selectedCategoryState = atom<string>({
   default: '',
 });
 
-export const toDoState = atom<IToDo[]>({
-  key: 'toDo',
-  default: [],
-});
+// export const toDoState = atom<IToDo[]>({
+//   key: 'toDo',
+//   default: [],
+// });
 
-export const toDoSelector = selector({
-  key: 'toDoSelector',
-  get: ({ get }) => {
-    const categories = get(categoriesState);
-    const selectedCategory = get(selectedCategoryState);
-    return categories[selectedCategory];
-  },
-});
+// export const toDoSelector = selector({
+//   key: 'toDoSelector',
+//   get: ({ get }) => {
+//     const categoryToDosMap = get(categoryToDosMapState);
+//     const selectedCategory = get(selectedCategoryState);
+//     return categoryToDosMap[selectedCategory];
+//   },
+// });

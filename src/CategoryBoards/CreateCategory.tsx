@@ -1,18 +1,20 @@
 import { useForm } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
-import { categoriesState } from '../atoms';
+import { categoryToDosMapState } from '../atoms';
 
 interface ICategory {
   category: string;
 }
 
 export const CreateCategory = () => {
-  const [categories, setCategories] = useRecoilState(categoriesState);
+  const [categoryToDosMap, setCategoryToDosMap] = useRecoilState(
+    categoryToDosMapState
+  );
   const { register, handleSubmit, setValue } = useForm<ICategory>();
   const handleValid = ({ category }: ICategory) => {
-    if (category in categories) return;
+    if (category in categoryToDosMap) return;
 
-    setCategories({ ...categories, [category]: [] });
+    setCategoryToDosMap({ ...categoryToDosMap, [category]: [] });
     setValue('category', '');
   };
 
