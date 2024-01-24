@@ -30,7 +30,7 @@ export const ToDo = ({ id, text }: IToDo) => {
       {Object.entries(categoryToDosMap)
         .filter(([category]) => category !== selectedCategory)
         .map(([category]) => (
-          <button name={category} onClick={onClick}>
+          <button key={`${category}_${id}`} name={category} onClick={onClick}>
             {category}
           </button>
         ))}
