@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { AnimatePresence, Variants, motion } from 'framer-motion';
+import { Variants, motion } from 'framer-motion';
 import { useState } from 'react';
 
 const Wrapper = styled(motion.div)`
@@ -11,7 +11,7 @@ const Wrapper = styled(motion.div)`
   overflow: hidden;
   background: linear-gradient(135deg, rgb(238, 0, 153), rgb(221, 0, 238));
   flex-direction: column;
-  gap: 3vh;
+  gap: 5vh;
 `;
 
 const Grid = styled.div`
@@ -31,12 +31,19 @@ const Box = styled(motion.div)`
   border-radius: 5px;
 `;
 
+const boxVariants: Variants = {
+  hover: ({ originX, originY }: IOriginCoords) => ({
+    scale: 1.1,
+    // originX,
+    // originY,
+  }),
+};
+
 const Button = styled(motion.button)`
   background-color: white;
   border-radius: 5px;
-  width: 5vw;
-  height: 4vh;
   border: none;
+  padding: 10px;
   cursor: pointer;
   font-size: 15px;
 `;
@@ -55,6 +62,11 @@ const Circle = styled(motion.div)`
   position: absolute;
 `;
 
+interface IOriginCoords {
+  originX: number;
+  originY: number;
+}
+
 export const AnimationsWithFramer = () => {
   const [targetIndex, setTargetIndex] = useState<number>(1);
   const handleClickButton = () => {
@@ -65,11 +77,29 @@ export const AnimationsWithFramer = () => {
     }
   };
 
+  const originCoords: IOriginCoords[] = [
+    { originX: 1, originY: 1 },
+    { originX: 0, originY: 1 },
+    { originX: 1, originY: 0 },
+    { originX: 0, originY: 0 },
+  ];
+
   return (
     <Wrapper>
       <Grid>
-        {Array.from({ length: 4 }, (_, i) => i).map((n) => (
-          <Box key={n}>{targetIndex === n && <Circle layoutId="circle" />}</Box>
+        {Array.from({ length: 4 }, (_, i) => i).map((n, i) => (
+          <Box
+            key={n}
+            custom={originCoords[i]}
+            variants={boxVariants}
+            whileHover="hover"
+            style={{
+              originX: originCoords[i].originX,
+              originY: originCoords[i].originY,
+            }}
+          >
+            {targetIndex === n && <Circle layoutId="circle" />}
+          </Box>
         ))}
       </Grid>
       <Button
