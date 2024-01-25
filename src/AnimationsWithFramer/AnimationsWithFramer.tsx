@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Variants, motion } from 'framer-motion';
+import { AnimatePresence, Variants, motion } from 'framer-motion';
 import { useState } from 'react';
 
 const Wrapper = styled(motion.div)`
@@ -17,8 +17,8 @@ const Wrapper = styled(motion.div)`
 const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  width: 50vw;
-  height: 60vh;
+  /* width: 50vw;
+  height: 60vh; */
   gap: 10px;
 `;
 
@@ -29,6 +29,8 @@ const Box = styled(motion.div)`
   justify-content: center;
   align-items: center;
   border-radius: 5px;
+  width: 25vw;
+  height: 30vh;
 `;
 
 const boxVariants: Variants = {
@@ -62,13 +64,38 @@ const Circle = styled(motion.div)`
   position: absolute;
 `;
 
+const Overlay = styled(motion.div)`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+`;
+
+const overlayVariants: Variants = {
+  initial: { backgroundColor: 'rgba(0, 0, 0, 0)' },
+  animate: { backgroundColor: 'rgba(247, 174, 56, 0.9)' },
+  exit: { backgroundColor: 'rgba(0, 0, 0, 0)' },
+};
+
 interface IOriginCoords {
   originX: number;
   originY: number;
 }
 
+const originCoords: IOriginCoords[] = [
+  { originX: 1, originY: 1 },
+  { originX: 0, originY: 1 },
+  { originX: 1, originY: 0 },
+  { originX: 0, originY: 0 },
+];
+
+const nonClickedBoxId = -1;
+
 export const AnimationsWithFramer = () => {
   const [targetIndex, setTargetIndex] = useState<number>(1);
+  const [clickedBoxId, setclickedBoxId] = useState<number>(nonClickedBoxId);
   const handleClickButton = () => {
     if (targetIndex === 1) {
       setTargetIndex(2);
@@ -76,13 +103,7 @@ export const AnimationsWithFramer = () => {
       setTargetIndex(1);
     }
   };
-
-  const originCoords: IOriginCoords[] = [
-    { originX: 1, originY: 1 },
-    { originX: 0, originY: 1 },
-    { originX: 1, originY: 0 },
-    { originX: 0, originY: 0 },
-  ];
+  const handleChangeSelectedBoxId = (id: number) => () => setclickedBoxId(id);
 
   return (
     <Wrapper>
@@ -97,11 +118,28 @@ export const AnimationsWithFramer = () => {
               originX: originCoords[i].originX,
               originY: originCoords[i].originY,
             }}
+            layoutId={i.toString()}
+            onClick={handleChangeSelectedBoxId(i)}
           >
             {targetIndex === n && <Circle layoutId="circle" />}
           </Box>
         ))}
       </Grid>
+      {clickedBoxId !== nonClickedBoxId && (
+        <AnimatePresence>
+          <Overlay
+            variants={overlayVariants}
+            initial="inital"
+            animate="animate"
+            exit="exit"
+            onClick={handleChangeSelectedBoxId(nonClickedBoxId)}
+          >
+            <Box layoutId={clickedBoxId.toString()}>
+              {targetIndex === clickedBoxId && <Circle layoutId="circle" />}
+            </Box>
+          </Overlay>
+        </AnimatePresence>
+      )}
       <Button
         onClick={handleClickButton}
         variants={buttonVariants}
