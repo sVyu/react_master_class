@@ -68,6 +68,7 @@ const Overlay = styled(motion.div)`
   justify-content: center;
   align-items: center;
   position: absolute;
+  z-index: 10;
 `;
 
 const overlayVariants: Variants = {
