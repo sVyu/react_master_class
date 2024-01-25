@@ -73,7 +73,7 @@ const Overlay = styled(motion.div)`
 
 const overlayVariants: Variants = {
   initial: { backgroundColor: 'rgba(0, 0, 0, 0)' },
-  animate: { backgroundColor: 'rgba(247, 174, 56, 0.9)' },
+  animate: { backgroundColor: 'rgba(55, 158, 143, 0.9)' },
   exit: { backgroundColor: 'rgba(0, 0, 0, 0)' },
 };
 
