@@ -17,13 +17,10 @@ const Wrapper = styled(motion.div)`
 const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  /* width: 50vw;
-  height: 60vh; */
   gap: 10px;
 `;
 
 const Box = styled(motion.div)`
-  /* height: 30vh; */
   background-color: rgba(255, 255, 255, 0.6);
   display: flex;
   justify-content: center;
