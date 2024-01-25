@@ -3,6 +3,7 @@ import Coin from './routes/Coin';
 import Coins from './routes/Coins';
 import { DefaultTheme } from 'styled-components/dist/types';
 import { ToDoList } from './CategoryBoards/ToDoList';
+import { AnimationsWithFramer } from './AnimationsWithFramer/AnimationsWithFramer';
 
 interface RouterProps {
   theme?: DefaultTheme;
@@ -22,6 +23,10 @@ const Router = ({ theme, onChangeTheme }: RouterProps) => {
           element={<Coins onChangeTheme={onChangeTheme} />}
         />
         <Route path="/category_boards" element={<ToDoList />} />
+        <Route
+          path="/animations_with_framer"
+          element={<AnimationsWithFramer />}
+        />
         <Route path="test" element={<div>test</div>} />
         <Route path="/" element={<div>coming soon !!!</div>} />
       </Routes>
