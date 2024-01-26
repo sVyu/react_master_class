@@ -3,14 +3,24 @@ import { AnimatePresence, Variants, motion } from 'framer-motion';
 import { useState } from 'react';
 
 const Wrapper = styled(motion.div)`
-  position: relative;
+  width: 100vw;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
+  background: rgb(0, 0, 0);
+`;
+
+const Slider = styled.div`
+  width: 100%;
+  height: 90%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: linear-gradient(135deg, rgb(238, 0, 153), rgb(221, 0, 238));
   flex-direction: column;
+  overflow: hidden;
   gap: 5vh;
 `;
 
@@ -21,21 +31,23 @@ const Grid = styled.div`
 `;
 
 const Box = styled(motion.div)`
-  background-color: rgba(255, 255, 255, 0.6);
+  background-color: rgb(255, 255, 255);
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 5px;
   width: 25vw;
-  height: 30vh;
+  height: 25vh;
+`;
+
+const LightBox = styled(Box)`
+  background-color: rgba(255, 255, 255, 0.6);
 `;
 
 const boxVariants: Variants = {
-  hover: ({ originX, originY }: IOriginCoords) => ({
+  hover: {
     scale: 1.1,
-    // originX,
-    // originY,
-  }),
+  },
 };
 
 const Button = styled(motion.button)`
@@ -45,6 +57,8 @@ const Button = styled(motion.button)`
   padding: 10px;
   cursor: pointer;
   font-size: 15px;
+  position: absolute;
+  bottom: 5vh;
 `;
 
 const buttonVariants: Variants = {
@@ -105,46 +119,48 @@ export const AnimationsWithFramer = () => {
 
   return (
     <Wrapper>
-      <Grid>
-        {Array.from({ length: 4 }, (_, i) => i).map((n, i) => (
-          <Box
-            key={n}
-            custom={originCoords[i]}
-            variants={boxVariants}
-            whileHover="hover"
-            style={{
-              originX: originCoords[i].originX,
-              originY: originCoords[i].originY,
-            }}
-            layoutId={i.toString()}
-            onClick={handleChangeSelectedBoxId(i)}
-          >
-            {targetIndex === n && <Circle layoutId="circle" />}
-          </Box>
-        ))}
-      </Grid>
-      {clickedBoxId !== nonClickedBoxId && (
-        <AnimatePresence>
-          <Overlay
-            variants={overlayVariants}
-            initial="inital"
-            animate="animate"
-            exit="exit"
-            onClick={handleChangeSelectedBoxId(nonClickedBoxId)}
-          >
-            <Box layoutId={clickedBoxId.toString()}>
-              {targetIndex === clickedBoxId && <Circle layoutId="circle" />}
-            </Box>
-          </Overlay>
-        </AnimatePresence>
-      )}
-      <Button
-        onClick={handleClickButton}
-        variants={buttonVariants}
-        animate={targetIndex === 1 ? 'default' : 'toggled'}
-      >
-        Switch
-      </Button>
+      <Slider>
+        <Grid>
+          {Array.from({ length: 4 }, (_, i) => i).map((n, i) => (
+            <LightBox
+              key={n}
+              // custom={originCoords[i]}
+              variants={boxVariants}
+              whileHover="hover"
+              style={{
+                originX: originCoords[i].originX,
+                originY: originCoords[i].originY,
+              }}
+              layoutId={i.toString()}
+              onClick={handleChangeSelectedBoxId(i)}
+            >
+              {targetIndex === n && <Circle layoutId="circle" />}
+            </LightBox>
+          ))}
+        </Grid>
+        {clickedBoxId !== nonClickedBoxId && (
+          <AnimatePresence>
+            <Overlay
+              variants={overlayVariants}
+              initial="inital"
+              animate="animate"
+              exit="exit"
+              onClick={handleChangeSelectedBoxId(nonClickedBoxId)}
+            >
+              <Box layoutId={clickedBoxId.toString()}>
+                {targetIndex === clickedBoxId && <Circle layoutId="circle" />}
+              </Box>
+            </Overlay>
+          </AnimatePresence>
+        )}
+        <Button
+          onClick={handleClickButton}
+          variants={buttonVariants}
+          animate={targetIndex === 1 ? 'default' : 'toggled'}
+        >
+          Switch
+        </Button>
+      </Slider>
     </Wrapper>
   );
 };
