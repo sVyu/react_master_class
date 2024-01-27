@@ -15,7 +15,7 @@ const Container = styled.div`
 
 const offset = 4;
 
-export const VyuflixCloneTv = () => {
+export const VyuflixCloneTV = () => {
   const { data: dataOfOnTheAirTVShows, isLoading: isLoadingOfOnTheAirTVShows } =
     useQuery<IGetContentsResult>(['tvShows', 'onTheAir'], getTVShowsOnTheAir);
   const {

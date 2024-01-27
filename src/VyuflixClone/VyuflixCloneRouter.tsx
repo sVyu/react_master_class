@@ -3,7 +3,8 @@ import Header from './Header';
 import { VyuflixCloneHome } from './VyuflixCloneHome';
 import { DarkTheme } from '../theme';
 import { DefaultTheme } from 'styled-components/dist/types';
-import { VyuflixCloneTv } from './VyuflixCloneTv';
+import { VyuflixCloneTV } from './VyuflixCloneTv';
+import { VyuflixCloneSearch } from './VyuflixCloneSearch';
 
 interface RouterProps {
   theme?: DefaultTheme;
@@ -17,7 +18,8 @@ export const VyuflixCloneRouter = ({ theme, onChangeTheme }: RouterProps) => {
     <>
       <Header />
       <Routes>
-        <Route path={'tv'} element={<VyuflixCloneTv />} />
+        <Route path="tv" element={<VyuflixCloneTV />} />
+        <Route path="search" element={<VyuflixCloneSearch />} />
         {['/', 'movies/:movieId'].map((path, index) => (
           <Route path={path} element={<VyuflixCloneHome />} key={index} />
         ))}

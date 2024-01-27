@@ -40,6 +40,15 @@ export interface IGetContentsResult {
   total_results: number;
 }
 
+// export interface IGetSearchPersonResult {
+//   page: number;
+//   results: {
+//     known_for: IContents[];
+//   }[];
+//   total_pages: number;
+//   total_results: number;
+// }
+
 // Movies
 export const getMoviesNowPlaying = () => {
   return fetch(`${BASE_PATH}/movie/now_playing?api_key=${API_KEY}`).then(
@@ -89,3 +98,22 @@ export const getTVShowsTopRated = () => {
     (response) => response.json()
   );
 };
+
+// Search
+export const getSearchMovies = (keyword: string) => {
+  return fetch(
+    `${BASE_PATH}/search/movie?query=${keyword}&api_key=${API_KEY}`
+  ).then((response) => response.json());
+};
+
+export const getSearchTV = (keyword: string) => {
+  return fetch(
+    `${BASE_PATH}/search/tv?query=${keyword}&api_key=${API_KEY}`
+  ).then((response) => response.json());
+};
+
+// export const getSearchPerson = (keyword: string) => {
+//   return fetch(
+//     `${BASE_PATH}/search/person?query=${keyword}&api_key=${API_KEY}&page=1`
+//   ).then((response) => response.json());
+// };
