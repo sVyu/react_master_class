@@ -10,7 +10,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: row;
   background-color: blue;
-  overflow: hidden;
   height: 200px;
 `;
 
@@ -51,6 +50,7 @@ const Box = styled(motion.div)<{ $bgPhoto: string }>`
   background-position: center center;
   height: 200px;
   font-size: 66px;
+  border-radius: 5px;
   cursor: pointer;
   &:first-child {
     transform-origin: center left;
@@ -88,14 +88,19 @@ const infoVariants = {
 
 const Info = styled(motion.div)`
   padding: 10px;
-  background-color: '#fff';
+  background-color: #d1cdc0;
   opacity: 0;
   position: absolute;
   width: 100%;
   bottom: 0;
-  h4 {
+  color: black;
+  border-radius: 5px;
+  & > h4 {
+    background-color: #cf7474;
+    padding-bottom: 1px;
     text-align: center;
     font-size: 18px;
+    border-radius: 5px;
   }
 `;
 
