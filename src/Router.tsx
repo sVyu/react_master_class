@@ -28,7 +28,13 @@ const Router = ({ theme, onChangeTheme }: RouterProps) => {
           path="/animations_with_framer"
           element={<AnimationsWithFramer />}
         />
-        <Route index path="/vyuflix_clone/*" element={<VyuflixCloneRouter />} />
+        <Route
+          index
+          path="/vyuflix_clone/*"
+          element={
+            <VyuflixCloneRouter theme={theme} onChangeTheme={onChangeTheme} />
+          }
+        />
         <Route path="test" element={<div>test</div>} />
         <Route path="/" element={<div>coming soon !!!</div>} />
       </Routes>
