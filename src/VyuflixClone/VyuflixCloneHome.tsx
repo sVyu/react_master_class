@@ -1,9 +1,14 @@
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import { motion, AnimatePresence, useScroll } from 'framer-motion';
-import { getMovies, IGetMoviesResult } from '../api';
+import {
+  getMoviesNowPlaying,
+  getMoviesPopular,
+  getMoviesTopRated,
+  getMoviesUpcoming,
+  IGetMoviesResult,
+} from '../api';
 import { makeImagePath } from '../utils';
-import { useState } from 'react';
 import { useNavigate, useMatch } from 'react-router-dom';
 import { VyuflixCloneSlider } from './VyuflicCloneSlider';
 
@@ -92,32 +97,66 @@ export const VyuflixCloneHome = () => {
   const navigate = useNavigate();
   const bigMovieMatch = useMatch('/vyuflix_clone/movies/:movieId');
   const { scrollY } = useScroll();
-  const { data, isLoading } = useQuery<IGetMoviesResult>(
-    ['movies', 'nowPlaying'],
-    getMovies
-  );
+  const { data: dataOfNowPlayingMovies, isLoading: loaindgOfNowPlayingMovies } =
+    useQuery<IGetMoviesResult>(['movies', 'nowPlaying'], getMoviesNowPlaying);
+  const { data: dataOfPopularMovies, isLoading: loadingOfLatestMovies } =
+    useQuery<IGetMoviesResult>(['movies', 'popular'], getMoviesPopular);
+  const { data: dataOfTopRatedMovies, isLoading: loadingOfTopRatedMovies } =
+    useQuery<IGetMoviesResult>(['movies', 'topRated'], getMoviesTopRated);
+  const { data: dataOfUpcomingMovies, isLoading: loadingOfUpcomingMovies } =
+    useQuery<IGetMoviesResult>(['movies', 'upcoming'], getMoviesUpcoming);
+
   const onOverlayClick = () => navigate('/vyuflix_clone');
   const clickedMovie =
     bigMovieMatch?.params.movieId &&
-    data?.results.find(
+    dataOfNowPlayingMovies?.results.find(
       (movie) =>
         movie.id.toString() === bigMovieMatch.params.movieId?.toString()
     );
   return (
     <Wrapper>
-      {isLoading ? (
+      {loaindgOfNowPlayingMovies ||
+      loadingOfLatestMovies ||
+      loadingOfTopRatedMovies ||
+      loadingOfUpcomingMovies ? (
         <Loader>Loading...</Loader>
       ) : (
         <>
           <Banner
-            $bgPhoto={makeImagePath(data?.results[0].backdrop_path || '')}
+            $bgPhoto={makeImagePath(
+              dataOfNowPlayingMovies?.results[0].backdrop_path || ''
+            )}
           >
-            <Title>{data?.results[0].title}</Title>
-            <Overview>{data?.results[0].overview}</Overview>
+            <Title>{dataOfNowPlayingMovies?.results[0].title}</Title>
+            <Overview>{dataOfNowPlayingMovies?.results[0].overview}</Overview>
           </Banner>
+
+          <div>nowPlaying</div>
           <VyuflixCloneSlider
-            data={data?.results.slice(1) ?? []}
+            data={dataOfNowPlayingMovies?.results.slice(1) ?? []}
             offset={offset}
+            keyValue={'NowPlayingMovies'}
+          />
+
+          <div>Popular movies</div>
+          <VyuflixCloneSlider
+            data={dataOfPopularMovies?.results ?? []}
+            offset={offset}
+            keyValue={'PopularMovies'}
+          />
+
+          <div>Top Rated Movies</div>
+          <VyuflixCloneSlider
+            data={dataOfTopRatedMovies?.results ?? []}
+            offset={offset}
+            keyValue={'TopRatedMovies'}
+          />
+
+          <div>Upcoming Movies</div>
+          <VyuflixCloneSlider
+            data={dataOfUpcomingMovies?.results ?? []}
+            offset={offset}
+            keyValue={'UpcomingMovies'}
           />
 
           <AnimatePresence>

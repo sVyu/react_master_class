@@ -99,11 +99,6 @@ const Info = styled(motion.div)`
   }
 `;
 
-interface SliderProps {
-  data: IMovie[];
-  offset: number;
-}
-
 const ButtonContainer = styled.div`
   background-color: red;
   display: flex;
@@ -122,13 +117,17 @@ const Button = styled.button`
   justify-content: center;
   align-items: center;
 `;
-
+interface SliderProps {
+  data: IMovie[];
+  offset: number;
+  keyValue: string;
+}
 interface buttonCustomProps {
   isGoingNext: boolean;
   offsetWidth: number;
 }
 
-export const VyuflixCloneSlider = ({ data, offset }: SliderProps) => {
+export const VyuflixCloneSlider = ({ data, offset, keyValue }: SliderProps) => {
   const navigate = useNavigate();
   const onBoxClicked = (movieId: number) => {
     navigate(`movies/${movieId}`);
@@ -181,14 +180,14 @@ export const VyuflixCloneSlider = ({ data, offset }: SliderProps) => {
             animate="visible"
             exit="exit"
             transition={{ type: 'tween', duration: 1 }}
-            key={index}
+            key={keyValue + index}
           >
             {data
               ?.slice(offset * index, offset * index + offset)
               .map((movie) => (
                 <Box
-                  layoutId={movie.id + ''}
-                  key={movie.id}
+                  layoutId={keyValue + movie.id + ''}
+                  key={keyValue + movie.id}
                   whileHover="hover"
                   initial="normal"
                   variants={boxVariants}
