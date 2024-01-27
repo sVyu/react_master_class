@@ -1,7 +1,7 @@
 import { Link, useMatch, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { motion, useAnimation, useScroll } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 const Nav = styled(motion.nav)`
@@ -74,7 +74,7 @@ const Input = styled(motion.input)`
   position: absolute;
   right: 0px;
   padding: 5px 10px;
-  padding-left: 40px;
+  padding-left: 50px;
   z-index: -1;
   color: white;
   font-size: 16px;
@@ -108,22 +108,31 @@ interface IForm {
 }
 
 function Header() {
-  const [searchOpen, setSearchOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const { register, handleSubmit } = useForm<IForm>();
+  const outsideRef = useRef<HTMLDivElement>(null);
   const homeMatch = useMatch('/vyuflix_clone');
   const tvMatch = useMatch('/vyuflix_clone/tv');
   const inputAnimation = useAnimation();
   const navAnimation = useAnimation();
   const { scrollY } = useScroll();
-  const toggleSearch = () => {
-    if (searchOpen) {
-      inputAnimation.start({
-        scaleX: 0,
-      });
-    } else {
-      inputAnimation.start({ scaleX: 1 });
-    }
-    setSearchOpen((prev) => !prev);
+  const navigate = useNavigate();
+
+  const OpenSearchInput = () => {
+    inputAnimation.start({ scaleX: 1 });
+    setIsSearchOpen(true);
   };
+
+  const CloseSearchInput = () => {
+    inputAnimation.start({ scaleX: 0 });
+    setIsSearchOpen(false);
+  };
+
+  const onValid = (data: IForm) => {
+    CloseSearchInput();
+    navigate(`search?keyword=${data.keyword}`);
+  };
+
   useEffect(() => {
     scrollY.onChange(() => {
       if (scrollY.get() > 80) {
@@ -133,11 +142,21 @@ function Header() {
       }
     });
   }, [scrollY, navAnimation]);
-  const navigate = useNavigate();
-  const { register, handleSubmit } = useForm<IForm>();
-  const onValid = (data: IForm) => {
-    navigate(`search?keyword=${data.keyword}`);
-  };
+
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (
+        outsideRef.current &&
+        !outsideRef.current.contains(e.target as Node)
+      ) {
+        // setIsSearchOpen(false);
+        CloseSearchInput();
+      }
+    };
+    window.addEventListener('mousedown', handleClick);
+    return () => window.removeEventListener('mousedown', handleClick);
+  }, []);
+
   return (
     <Nav variants={navVariants} animate={navAnimation} initial={'top'}>
       <Col>
@@ -165,11 +184,11 @@ function Header() {
           </Item>
         </Items>
       </Col>
-      <Col>
+      <Col ref={outsideRef}>
         <Search onSubmit={handleSubmit(onValid)}>
           <motion.svg
-            onClick={toggleSearch}
-            animate={{ x: searchOpen ? -185 : 0 }}
+            onClick={isSearchOpen ? CloseSearchInput : OpenSearchInput}
+            animate={{ x: isSearchOpen ? -215 : 0 }}
             transition={{ type: 'linear' }}
             fill="currentColor"
             viewBox="0 0 20 20"
@@ -186,7 +205,7 @@ function Header() {
             animate={inputAnimation}
             initial={{ scaleX: 0 }}
             transition={{ type: 'linear' }}
-            placeholder="Search for movie or tv show..."
+            placeholder="Search for movie / tv show"
           />
         </Search>
       </Col>
