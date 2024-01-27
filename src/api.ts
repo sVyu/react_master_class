@@ -1,6 +1,6 @@
 const BASE_URL = `https://api.coinpaprika.com/v1`;
 const BASE_PATH = 'https://api.themoviedb.org/3';
-const API_KEY = '';
+const API_KEY = process.env.REACT_APP_MOVIE_API_KEY;
 
 export function fetchCoins() {
   return fetch(`${BASE_URL}/coins`).then((response) => response.json());
