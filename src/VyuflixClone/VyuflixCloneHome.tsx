@@ -2,11 +2,11 @@ import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import { motion, AnimatePresence, useScroll } from 'framer-motion';
 import {
+  IGetContentsResult,
   getMoviesNowPlaying,
   getMoviesPopular,
   getMoviesTopRated,
   getMoviesUpcoming,
-  IGetMoviesResult,
 } from '../api';
 import { makeImagePath } from '../utils';
 import { useNavigate, useMatch } from 'react-router-dom';
@@ -98,13 +98,13 @@ export const VyuflixCloneHome = () => {
   const bigMovieMatch = useMatch('/vyuflix_clone/movies/:movieId');
   const { scrollY } = useScroll();
   const { data: dataOfNowPlayingMovies, isLoading: loaindgOfNowPlayingMovies } =
-    useQuery<IGetMoviesResult>(['movies', 'nowPlaying'], getMoviesNowPlaying);
+    useQuery<IGetContentsResult>(['movies', 'nowPlaying'], getMoviesNowPlaying);
   const { data: dataOfPopularMovies, isLoading: loadingOfLatestMovies } =
-    useQuery<IGetMoviesResult>(['movies', 'popular'], getMoviesPopular);
+    useQuery<IGetContentsResult>(['movies', 'popular'], getMoviesPopular);
   const { data: dataOfTopRatedMovies, isLoading: loadingOfTopRatedMovies } =
-    useQuery<IGetMoviesResult>(['movies', 'topRated'], getMoviesTopRated);
+    useQuery<IGetContentsResult>(['movies', 'topRated'], getMoviesTopRated);
   const { data: dataOfUpcomingMovies, isLoading: loadingOfUpcomingMovies } =
-    useQuery<IGetMoviesResult>(['movies', 'upcoming'], getMoviesUpcoming);
+    useQuery<IGetContentsResult>(['movies', 'upcoming'], getMoviesUpcoming);
 
   const onOverlayClick = () => navigate('/vyuflix_clone');
   const clickedMovie =

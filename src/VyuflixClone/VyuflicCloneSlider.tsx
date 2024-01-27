@@ -1,9 +1,9 @@
 import { AnimatePresence, Variants, motion } from 'framer-motion';
 import styled from 'styled-components';
-import { IMovie } from '../api';
 import { makeImagePath } from '../utils';
 import { useNavigate } from 'react-router-dom';
 import { useRef, useState } from 'react';
+import { IContents } from '../api';
 
 const Container = styled.div`
   width: 100%;
@@ -21,10 +21,10 @@ const Slider = styled.div`
   background-color: black;
 `;
 
-const Row = styled(motion.div)`
+const Row = styled(motion.div)<{ $offset: number }>`
   display: grid;
   gap: 5px;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(${(props) => props.$offset}, 1fr);
   position: absolute;
   width: 100%;
   height: 100%;
@@ -118,7 +118,7 @@ const Button = styled.button`
   align-items: center;
 `;
 interface SliderProps {
-  data: IMovie[];
+  data: IContents[];
   offset: number;
   keyValue: string;
 }
@@ -181,6 +181,7 @@ export const VyuflixCloneSlider = ({ data, offset, keyValue }: SliderProps) => {
             exit="exit"
             transition={{ type: 'tween', duration: 1 }}
             key={keyValue + index}
+            $offset={offset}
           >
             {data
               ?.slice(offset * index, offset * index + offset)
@@ -196,7 +197,7 @@ export const VyuflixCloneSlider = ({ data, offset, keyValue }: SliderProps) => {
                   $bgPhoto={makeImagePath(movie.backdrop_path, 'w500')}
                 >
                   <Info variants={infoVariants}>
-                    <h4>{movie.title}</h4>
+                    <h4>{movie.title || movie.name}</h4>
                   </Info>
                 </Box>
               ))}

@@ -24,25 +24,23 @@ export function fetchCoinHistory(coinId: string) {
   ).then((response) => response.json());
 }
 
-export interface IMovie {
+export interface IContents {
   id: number;
   backdrop_path: string;
   poster_path: string;
-  title: string;
+  title?: string;
+  name?: string;
   overview: string;
 }
 
-export interface IGetMoviesResult {
-  dates: {
-    maximum: string;
-    minimum: string;
-  };
+export interface IGetContentsResult {
   page: number;
-  results: IMovie[];
+  results: IContents[];
   total_pages: number;
   total_results: number;
 }
 
+// Movies
 export const getMoviesNowPlaying = () => {
   return fetch(`${BASE_PATH}/movie/now_playing?api_key=${API_KEY}`).then(
     (response) => response.json()
@@ -63,6 +61,31 @@ export const getMoviesTopRated = () => {
 
 export const getMoviesUpcoming = () => {
   return fetch(`${BASE_PATH}/movie/upcoming?api_key=${API_KEY}`).then(
+    (response) => response.json()
+  );
+};
+
+// TVShows
+export const getTVShowsOnTheAir = () => {
+  return fetch(`${BASE_PATH}/tv/on_the_air?api_key=${API_KEY}`).then(
+    (response) => response.json()
+  );
+};
+
+export const getTVShowsAiringToday = () => {
+  return fetch(`${BASE_PATH}/tv/airing_today?api_key=${API_KEY}`).then(
+    (response) => response.json()
+  );
+};
+
+export const getTVShowsPopular = () => {
+  return fetch(`${BASE_PATH}/tv/popular?api_key=${API_KEY}`).then((response) =>
+    response.json()
+  );
+};
+
+export const getTVShowsTopRated = () => {
+  return fetch(`${BASE_PATH}/tv/top_rated?api_key=${API_KEY}`).then(
     (response) => response.json()
   );
 };

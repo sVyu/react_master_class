@@ -13,6 +13,7 @@ const Nav = styled(motion.nav)`
   top: 0;
   padding: 20px 60px;
   color: white;
+  z-index: 100;
 `;
 
 const Col = styled.div`
