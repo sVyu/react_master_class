@@ -11,7 +11,6 @@ const Nav = styled(motion.nav)`
   position: fixed;
   width: 100%;
   top: 0;
-  font-size: 14px;
   padding: 20px 60px;
   color: white;
 `;
@@ -25,7 +24,7 @@ const Logo = styled(motion.svg)`
   margin-right: 50px;
   width: 95px;
   height: 25px;
-  fill: '#E51013';
+  fill: #e51013;
   path {
     stroke-width: 6px;
     stroke: white;
@@ -39,14 +38,14 @@ const Items = styled.ul`
 
 const Item = styled.li`
   margin-right: 20px;
-  color: '#e5e5e5';
+  color: #e5e5e5;
   transition: color 0.3s ease-in-out;
   position: relative;
   display: flex;
   justify-content: center;
   flex-direction: column;
   &:hover {
-    color: '#fff';
+    color: #fff;
   }
 `;
 
@@ -65,10 +64,7 @@ const Circle = styled(motion.span)`
   width: 5px;
   height: 5px;
   border-radius: 2.5px;
-  bottom: -5px;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
+  top: 5px;
   background-color: #e51013;
 `;
 
@@ -82,7 +78,7 @@ const Input = styled(motion.input)`
   color: white;
   font-size: 16px;
   background-color: transparent;
-  border: 1px solid '#fff';
+  border: 1px solid #fff;
 `;
 
 const logoVariants = {

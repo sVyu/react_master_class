@@ -24,7 +24,7 @@ export function fetchCoinHistory(coinId: string) {
   ).then((response) => response.json());
 }
 
-interface IMovie {
+export interface IMovie {
   id: number;
   backdrop_path: string;
   poster_path: string;
