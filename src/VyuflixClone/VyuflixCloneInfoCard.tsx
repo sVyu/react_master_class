@@ -132,7 +132,9 @@ export const VyuflixCloneInfoCard = ({
                 </BigCoverContainer>
                 <Line />
                 <OverviewContainer>
-                  <BigOverview>{clickedContent.overview}</BigOverview>
+                  <BigOverview>
+                    {clickedContent.overview || 'NO OVERVIEW'}
+                  </BigOverview>
                 </OverviewContainer>
               </>
             )}

@@ -75,7 +75,7 @@ export const VyuflixCloneBanner = ({ content }: BannerProps) => {
           {'⭐'.repeat(parseInt(content.vote_average.toFixed(0)))}
         </RateBox>
         <Title>{content.title || content.name}</Title>
-        <Overview>{content.overview}</Overview>
+        <Overview>{content.overview ?? 'NO OVERVIEW'}</Overview>
       </InfoBox>
       <ImageBox $bgPhoto={makeImagePath(content.backdrop_path || '')} />
     </BannerContainer>
