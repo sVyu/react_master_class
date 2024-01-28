@@ -57,7 +57,7 @@ export const VyuflixCloneHome = () => {
       loadingOfLatestMovies &&
       loadingOfTopRatedMovies &&
       loadingOfUpcomingMovies ? (
-        <Loader></Loader>
+        <Loader />
       ) : (
         <>
           <VyuflixCloneBanner content={dataOfNowPlayingMovies?.results[0]} />

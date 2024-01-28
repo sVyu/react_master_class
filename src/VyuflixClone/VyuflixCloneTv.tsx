@@ -58,14 +58,14 @@ export const VyuflixCloneTV = () => {
   const handleClickOverlay = () => navigate('/vyuflix_clone/tv');
 
   return (
-    <>
+    <Container>
       {isLoadingOfOnTheAirTVShows &&
       isLoadingOfAiringTodayTVShows &&
       isLoadingOfPopularTVShows &&
       isLoadingOfTopRatedTVShows ? (
         <Loader />
       ) : (
-        <Container>
+        <>
           <VyuflixCloneBanner content={dataOfAiringTodayTVShows?.results[0]} />
           <div>OnTheAir</div>
           <VyuflixCloneSlider
@@ -102,8 +102,8 @@ export const VyuflixCloneTV = () => {
               handleClickOverlay={handleClickOverlay}
             />
           )}
-        </Container>
+        </>
       )}
-    </>
+    </Container>
   );
 };
