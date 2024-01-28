@@ -18,8 +18,8 @@ export const VyuflixCloneRouter = ({ theme, onChangeTheme }: RouterProps) => {
     <>
       <Header />
       <Routes>
-        <Route path="tv" element={<VyuflixCloneTV />} />
-        <Route path="search" element={<VyuflixCloneSearch />} />
+        <Route path="tv/*" element={<VyuflixCloneTV />} />
+        <Route path="search/*" element={<VyuflixCloneSearch />} />
         {['/', 'movies/:movieId'].map((path, index) => (
           <Route path={path} element={<VyuflixCloneHome />} key={index} />
         ))}

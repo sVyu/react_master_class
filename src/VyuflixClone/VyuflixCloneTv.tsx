@@ -1,21 +1,32 @@
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import {
+  IContents,
   IGetContentsResult,
   getTVShowsAiringToday,
   getTVShowsOnTheAir,
   getTVShowsPopular,
   getTVShowsTopRated,
 } from '../api';
-import { VyuflixCloneSlider } from './VyuflicCloneSlider';
+import {
+  ContentBoxHandlerProps,
+  VyuflixCloneSlider,
+} from './VyuflicCloneSlider';
+import { useState } from 'react';
+import { useMatch, useNavigate } from 'react-router-dom';
+import { VyuflixCloneInfoCard } from './VyuflixCloneInfoCard';
 
 const Container = styled.div`
   width: 100%;
+  height: 100vh;
+  background-color: black;
 `;
 
 const offset = 4;
 
 export const VyuflixCloneTV = () => {
+  const navigate = useNavigate();
+  const [clicedContentData, setClickedContentData] = useState<IContents[]>([]);
   const { data: dataOfOnTheAirTVShows, isLoading: isLoadingOfOnTheAirTVShows } =
     useQuery<IGetContentsResult>(['tvShows', 'onTheAir'], getTVShowsOnTheAir);
   const {
@@ -31,32 +42,58 @@ export const VyuflixCloneTV = () => {
   const { data: dataOfTopRatedTVShows, isLoading: isLoadingOfTopRatedTVShows } =
     useQuery<IGetContentsResult>(['tvShows', 'topRated'], getTVShowsTopRated);
 
+  const tvMatch = useMatch('/vyuflix_clone/tv/:tvId');
+  const clickedContent =
+    tvMatch?.params.tvId &&
+    clicedContentData?.find(
+      (content) => content.id.toString() === tvMatch.params.tvId?.toString()
+    );
+
+  const handleClickContentData = ({ id, data }: ContentBoxHandlerProps) => {
+    navigate(`/vyuflix_clone/tv/${id}`);
+    setClickedContentData(data);
+  };
+
+  const handleClickOverlay = () => navigate('/vyuflix_clone/tv');
+
   return (
     <Container>
       <div>OnTheAir</div>
-      {/* <VyuflixCloneSlider
+      <VyuflixCloneSlider
         data={dataOfOnTheAirTVShows?.results ?? []}
         offset={offset}
         keyValue={'OnTheAirTVShows'}
+        handleClickContentBox={handleClickContentData}
       />
       <div>AiringToday</div>
       <VyuflixCloneSlider
         data={dataOfAiringTodayTVShows?.results ?? []}
         offset={offset}
         keyValue={'AiringToday'}
+        handleClickContentBox={handleClickContentData}
       />
       <div>Popular</div>
       <VyuflixCloneSlider
         data={dataOfPopularTVShows?.results ?? []}
         offset={offset}
         keyValue={'Popular'}
+        handleClickContentBox={handleClickContentData}
       />
       <div>TopRated</div>
       <VyuflixCloneSlider
         data={dataOfTopRatedTVShows?.results ?? []}
         offset={offset}
         keyValue={'Toprated'}
-      /> */}
+        handleClickContentBox={handleClickContentData}
+      />
+      {tvMatch && (
+        <VyuflixCloneInfoCard
+          key={Date.now()}
+          patchMatch={tvMatch}
+          clickedContent={clickedContent}
+          handleClickOverlay={handleClickOverlay}
+        />
+      )}
     </Container>
   );
 };

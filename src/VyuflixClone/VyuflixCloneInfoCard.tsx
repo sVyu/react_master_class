@@ -116,7 +116,8 @@ export const VyuflixCloneInfoCard = ({
                 <BigCoverContainer
                   style={{
                     backgroundImage: `linear-gradient(to top, black, transparent), url(${makeImagePath(
-                      clickedContent.backdrop_path,
+                      clickedContent.backdrop_path ||
+                        clickedContent.poster_path,
                       'w500'
                     )})`,
                   }}
@@ -125,7 +126,9 @@ export const VyuflixCloneInfoCard = ({
                     ⭐{clickedContent.vote_average.toFixed(1)} (👪
                     {clickedContent.vote_count})
                   </RateBox>
-                  <BigTitle>{clickedContent.title}</BigTitle>
+                  <BigTitle>
+                    {clickedContent.title || clickedContent.name}
+                  </BigTitle>
                 </BigCoverContainer>
                 <Line />
                 <OverviewContainer>

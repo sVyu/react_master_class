@@ -9,7 +9,10 @@ import {
   getMoviesUpcoming,
 } from '../api';
 import { useNavigate, useMatch } from 'react-router-dom';
-import { VyuflixCloneSlider } from './VyuflicCloneSlider';
+import {
+  ContentBoxHandlerProps,
+  VyuflixCloneSlider,
+} from './VyuflicCloneSlider';
 import { VyuflixCloneInfoCard } from './VyuflixCloneInfoCard';
 import { useState } from 'react';
 import { VyuflixCloneBanner } from './VyuflixCloneBanner';
@@ -48,8 +51,10 @@ export const VyuflixCloneHome = () => {
       (content) =>
         content.id.toString() === bigMovieMatch.params.movieId?.toString()
     );
-  const handleClickContentData = (data: IContents[]) =>
+  const handleClickContentData = ({ id, data }: ContentBoxHandlerProps) => {
+    navigate(`movies/${id}`);
     setClickedContentData(data);
+  };
   const handleClickOverlay = () => navigate('/vyuflix_clone');
 
   return (
@@ -103,11 +108,14 @@ export const VyuflixCloneHome = () => {
             handleClickContentBox={handleClickContentData}
           />
 
-          <VyuflixCloneInfoCard
-            patchMatch={bigMovieMatch}
-            clickedContent={clickedContent}
-            handleClickOverlay={handleClickOverlay}
-          />
+          {bigMovieMatch && (
+            <VyuflixCloneInfoCard
+              key={Date.now()}
+              patchMatch={bigMovieMatch}
+              clickedContent={clickedContent}
+              handleClickOverlay={handleClickOverlay}
+            />
+          )}
         </>
       )}
     </Wrapper>

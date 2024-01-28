@@ -123,12 +123,19 @@ const Button = styled.button`
   justify-content: center;
   align-items: center;
 `;
+
+export interface ContentBoxHandlerProps {
+  id: number;
+  data: IContents[];
+}
+
 interface SliderProps {
   data: IContents[];
   offset: number;
   keyValue: string;
-  handleClickContentBox: (data: IContents[]) => void;
+  handleClickContentBox: ({ id, data }: ContentBoxHandlerProps) => void;
 }
+
 interface buttonCustomProps {
   isGoingNext: boolean;
   offsetWidth: number;
@@ -140,11 +147,6 @@ export const VyuflixCloneSlider = ({
   keyValue,
   handleClickContentBox,
 }: SliderProps) => {
-  const navigate = useNavigate();
-  const onBoxClicked = (movieId: number) => {
-    navigate(`movies/${movieId}`);
-  };
-
   const totalMovies = data.length - 1;
   const maxIndex = Math.floor(totalMovies / offset) - 1;
 
@@ -168,10 +170,11 @@ export const VyuflixCloneSlider = ({
     setIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
   };
 
-  const handleClickBox = (id: number) => () => {
-    onBoxClicked(id);
-    handleClickContentBox(data);
-  };
+  const handleClickBox =
+    ({ id, data }: ContentBoxHandlerProps) =>
+    () => {
+      handleClickContentBox({ id, data });
+    };
 
   return (
     <>
@@ -210,9 +213,12 @@ export const VyuflixCloneSlider = ({
                     whileHover="hover"
                     initial="normal"
                     variants={boxVariants}
-                    onClick={handleClickBox(movie.id)}
+                    onClick={handleClickBox({ id: movie.id, data })}
                     transition={{ type: 'tween' }}
-                    $bgPhoto={makeImagePath(movie.backdrop_path, 'w500')}
+                    $bgPhoto={makeImagePath(
+                      movie.backdrop_path || movie.poster_path,
+                      'w500'
+                    )}
                   >
                     <Info variants={infoVariants}>
                       <h4>{movie.title || movie.name}</h4>
