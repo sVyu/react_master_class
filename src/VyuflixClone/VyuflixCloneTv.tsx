@@ -17,6 +17,7 @@ import { useMatch, useNavigate } from 'react-router-dom';
 import { VyuflixCloneInfoCard } from './VyuflixCloneInfoCard';
 import { VyuflixCloneBanner } from './VyuflixCloneBanner';
 import { Loader } from './Loader';
+import { TitleStringBox } from './TitleStringBox';
 
 const Container = styled.div`
   width: 100%;
@@ -67,28 +68,28 @@ export const VyuflixCloneTV = () => {
       ) : (
         <>
           <VyuflixCloneBanner content={dataOfAiringTodayTVShows?.results[0]} />
-          <div>OnTheAir</div>
+          <TitleStringBox>◎ OnTheAir</TitleStringBox>
           <VyuflixCloneSlider
             data={dataOfOnTheAirTVShows?.results.slice(1) ?? []}
             offset={offset}
             keyValue={'OnTheAirTVShows'}
             handleClickContentBox={handleClickContentData}
           />
-          <div>AiringToday</div>
+          <TitleStringBox>◎ AiringToday</TitleStringBox>
           <VyuflixCloneSlider
             data={dataOfAiringTodayTVShows?.results ?? []}
             offset={offset}
             keyValue={'AiringToday'}
             handleClickContentBox={handleClickContentData}
           />
-          <div>Popular</div>
+          <TitleStringBox>◎ Popular</TitleStringBox>
           <VyuflixCloneSlider
             data={dataOfPopularTVShows?.results ?? []}
             offset={offset}
             keyValue={'Popular'}
             handleClickContentBox={handleClickContentData}
           />
-          <div>TopRated</div>
+          <TitleStringBox>◎ TopRated</TitleStringBox>
           <VyuflixCloneSlider
             data={dataOfTopRatedTVShows?.results ?? []}
             offset={offset}

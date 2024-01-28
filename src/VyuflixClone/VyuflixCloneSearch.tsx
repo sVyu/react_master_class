@@ -11,6 +11,7 @@ import { VyuflixCloneBanner } from './VyuflixCloneBanner';
 import styled from 'styled-components';
 import { Loader } from './Loader';
 import { useEffect, useRef, useState } from 'react';
+import { TitleStringBox } from './TitleStringBox';
 
 const Container = styled.div`
   width: 100%;
@@ -77,14 +78,14 @@ export const VyuflixCloneSearch = ({ handleSetKey }: SearchPageProps) => {
         <>
           <VyuflixCloneBanner content={dataOfSearchMovies?.results[0]} />
 
-          <div>Searched Movies</div>
+          <TitleStringBox>◎ Searched Movies</TitleStringBox>
           <VyuflixCloneSlider
             data={dataOfSearchMovies?.results.slice(1) ?? []}
             offset={offset}
             keyValue={'SearchMovies'}
             handleClickContentBox={handleClickMovieData}
           />
-          <div>Searched TV</div>
+          <TitleStringBox>◎ Searched TV</TitleStringBox>
           <VyuflixCloneSlider
             data={dataOfSearchTV?.results ?? []}
             offset={offset}

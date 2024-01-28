@@ -17,6 +17,7 @@ import { VyuflixCloneInfoCard } from './VyuflixCloneInfoCard';
 import { useState } from 'react';
 import { VyuflixCloneBanner } from './VyuflixCloneBanner';
 import { Loader } from './Loader';
+import { TitleStringBox } from './TitleStringBox';
 
 const Wrapper = styled.div`
   background: black;
@@ -62,7 +63,7 @@ export const VyuflixCloneHome = () => {
         <>
           <VyuflixCloneBanner content={dataOfNowPlayingMovies?.results[0]} />
 
-          <div>nowPlaying</div>
+          <TitleStringBox>◎ Now Playing</TitleStringBox>
           <VyuflixCloneSlider
             data={dataOfNowPlayingMovies?.results.slice(1) ?? []}
             offset={offset}
@@ -70,7 +71,7 @@ export const VyuflixCloneHome = () => {
             handleClickContentBox={handleClickContentData}
           />
 
-          <div>Popular movies</div>
+          <TitleStringBox>◎ Popular movies</TitleStringBox>
           <VyuflixCloneSlider
             data={dataOfPopularMovies?.results ?? []}
             offset={offset}
@@ -78,7 +79,7 @@ export const VyuflixCloneHome = () => {
             handleClickContentBox={handleClickContentData}
           />
 
-          <div>Top Rated Movies</div>
+          <TitleStringBox>◎ Top Rated Movies</TitleStringBox>
           <VyuflixCloneSlider
             data={dataOfTopRatedMovies?.results ?? []}
             offset={offset}
@@ -86,7 +87,7 @@ export const VyuflixCloneHome = () => {
             handleClickContentBox={handleClickContentData}
           />
 
-          <div>Upcoming Movies</div>
+          <TitleStringBox>◎ Upcoming Movies</TitleStringBox>
           <VyuflixCloneSlider
             data={dataOfUpcomingMovies?.results ?? []}
             offset={offset}
