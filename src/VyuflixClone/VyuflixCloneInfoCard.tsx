@@ -99,7 +99,6 @@ export const VyuflixCloneInfoCard = ({
   clickedContent,
   handleClickOverlay,
 }: InfoCardProps) => {
-  console.log('cliekdContent', clickedContent);
   return (
     <AnimatePresence>
       {patchMatch && (

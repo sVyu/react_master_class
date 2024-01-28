@@ -1,6 +1,5 @@
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
-import { motion, useScroll } from 'framer-motion';
 import {
   IContents,
   IGetContentsResult,
@@ -9,12 +8,11 @@ import {
   getMoviesTopRated,
   getMoviesUpcoming,
 } from '../api';
-import { makeImagePath } from '../utils';
 import { useNavigate, useMatch } from 'react-router-dom';
 import { VyuflixCloneSlider } from './VyuflicCloneSlider';
 import { VyuflixCloneInfoCard } from './VyuflixCloneInfoCard';
 import { useState } from 'react';
-import { set } from 'react-hook-form';
+import { VyuflixCloneBanner } from './VyuflixCloneBanner';
 
 const Wrapper = styled.div`
   background: black;
@@ -27,28 +25,6 @@ const Loader = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-const Banner = styled.div<{ $bgPhoto: string }>`
-  height: 90vh;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 60px;
-  background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)),
-    url(${(props) => props.$bgPhoto});
-  background-size: cover;
-`;
-
-const Title = styled.h2`
-  font-size: 68px;
-  margin-bottom: 20px;
-`;
-
-const Overview = styled.p`
-  font-size: 30px;
-  width: 50%;
 `;
 
 const offset = 6;
@@ -85,14 +61,15 @@ export const VyuflixCloneHome = () => {
         <Loader>Loading...</Loader>
       ) : (
         <>
-          <Banner
+          {/* <Banner
             $bgPhoto={makeImagePath(
               dataOfNowPlayingMovies?.results[0].backdrop_path || ''
             )}
           >
             <Title>{dataOfNowPlayingMovies?.results[0].title}</Title>
             <Overview>{dataOfNowPlayingMovies?.results[0].overview}</Overview>
-          </Banner>
+          </Banner> */}
+          <VyuflixCloneBanner content={dataOfNowPlayingMovies?.results[0]} />
 
           <div>nowPlaying</div>
           <VyuflixCloneSlider
