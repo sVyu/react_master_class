@@ -10,6 +10,7 @@ import { VyuflixCloneInfoCard } from './VyuflixCloneInfoCard';
 import { VyuflixCloneBanner } from './VyuflixCloneBanner';
 import styled from 'styled-components';
 import { Loader } from './Loader';
+import { useEffect, useRef, useState } from 'react';
 
 const Container = styled.div`
   width: 100%;
@@ -17,7 +18,12 @@ const Container = styled.div`
 `;
 
 const offset = 4;
-export const VyuflixCloneSearch = () => {
+
+interface SearchPageProps {
+  handleSetKey: (value: string) => void;
+}
+
+export const VyuflixCloneSearch = ({ handleSetKey }: SearchPageProps) => {
   const urlLocation = useLocation();
   const navigate = useNavigate();
   const keyword = new URLSearchParams(urlLocation.search).get('keyword');
@@ -27,9 +33,10 @@ export const VyuflixCloneSearch = () => {
       getSearchMovies(keyword ?? '')
     );
   const { data: dataOfSearchTV, isLoading: isLoadingOfSearchTV } =
-    useQuery<IGetContentsResult>(['Search', 'TV'], () =>
-      getSearchTV(keyword ?? '')
-    );
+    useQuery<IGetContentsResult>(['Search', 'TV'], () => {
+      console.log('api 호출 !!!');
+      return getSearchTV(keyword ?? '');
+    });
   // const { data: dataOfSearchPerson, isLoading: isLoadingOfSearchPerson } =
   //   useQuery<IGetSearchPersonResult>(['Search', 'Person'], () =>
   //     getSearchPerson(keyword ?? '')
@@ -58,17 +65,16 @@ export const VyuflixCloneSearch = () => {
   const handleClickOverlay = () =>
     navigate(`/vyuflix_clone/search?keyword=${keyword}`);
 
-  // useEffect(() => {
-  //   window.history(`search?keyword=${keyword}`);
-  //   // location.reload(`);
-  // }, [keyword]);
+  useEffect(() => {
+    if (keyword) handleSetKey(keyword);
+  }, [keyword]);
 
   return (
-    <>
-      {isLoadingOfSearchMovies && isLoadingOfSearchTV ? (
+    <Container>
+      {isLoadingOfSearchMovies || isLoadingOfSearchTV ? (
         <Loader />
       ) : (
-        <Container>
+        <>
           <VyuflixCloneBanner content={dataOfSearchMovies?.results[0]} />
 
           <div>Searched Movies</div>
@@ -102,8 +108,8 @@ export const VyuflixCloneSearch = () => {
               handleClickOverlay={handleClickOverlay}
             />
           )}
-        </Container>
+        </>
       )}
-    </>
+    </Container>
   );
 };

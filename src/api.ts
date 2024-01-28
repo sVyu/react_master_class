@@ -104,13 +104,13 @@ export const getTVShowsTopRated = () => {
 // Search
 export const getSearchMovies = (keyword: string) => {
   return fetch(
-    `${BASE_PATH}/search/movie?query=${keyword}&api_key=${API_KEY}`
+    `${BASE_PATH}/search/movie?query=${keyword}&api_key=${API_KEY}&page=1`
   ).then((response) => response.json());
 };
 
 export const getSearchTV = (keyword: string) => {
   return fetch(
-    `${BASE_PATH}/search/tv?query=${keyword}&api_key=${API_KEY}`
+    `${BASE_PATH}/search/tv?query=${keyword}&api_key=${API_KEY}&page=1`
   ).then((response) => response.json());
 };
 

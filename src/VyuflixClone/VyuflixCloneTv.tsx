@@ -59,9 +59,9 @@ export const VyuflixCloneTV = () => {
 
   return (
     <Container>
-      {isLoadingOfOnTheAirTVShows &&
-      isLoadingOfAiringTodayTVShows &&
-      isLoadingOfPopularTVShows &&
+      {isLoadingOfOnTheAirTVShows ||
+      isLoadingOfAiringTodayTVShows ||
+      isLoadingOfPopularTVShows ||
       isLoadingOfTopRatedTVShows ? (
         <Loader />
       ) : (
