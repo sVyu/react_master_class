@@ -53,9 +53,9 @@ export const VyuflixCloneHome = () => {
 
   return (
     <Wrapper>
-      {loaindgOfNowPlayingMovies ||
-      loadingOfLatestMovies ||
-      loadingOfTopRatedMovies ||
+      {loaindgOfNowPlayingMovies &&
+      loadingOfLatestMovies &&
+      loadingOfTopRatedMovies &&
       loadingOfUpcomingMovies ? (
         <Loader></Loader>
       ) : (

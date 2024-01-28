@@ -18,9 +18,9 @@ const Container = styled.div`
 
 const offset = 4;
 export const VyuflixCloneSearch = () => {
-  const location = useLocation();
+  const urlLocation = useLocation();
   const navigate = useNavigate();
-  const keyword = new URLSearchParams(location.search).get('keyword');
+  const keyword = new URLSearchParams(urlLocation.search).get('keyword');
 
   const { data: dataOfSearchMovies, isLoading: isLoadingOfSearchMovies } =
     useQuery<IGetContentsResult>(['Search', 'Movies'], () =>
@@ -58,12 +58,17 @@ export const VyuflixCloneSearch = () => {
   const handleClickOverlay = () =>
     navigate(`/vyuflix_clone/search?keyword=${keyword}`);
 
+  // useEffect(() => {
+  //   window.history(`search?keyword=${keyword}`);
+  //   // location.reload(`);
+  // }, [keyword]);
+
   return (
-    <Container>
-      {isLoadingOfSearchMovies || isLoadingOfSearchTV ? (
+    <>
+      {isLoadingOfSearchMovies && isLoadingOfSearchTV ? (
         <Loader />
       ) : (
-        <>
+        <Container>
           <VyuflixCloneBanner content={dataOfSearchMovies?.results[0]} />
 
           <div>Searched Movies</div>
@@ -83,6 +88,7 @@ export const VyuflixCloneSearch = () => {
 
           {searchMoviesMatch && (
             <VyuflixCloneInfoCard
+              key={searchMoviesMatch.params.movieId}
               patchMatch={searchMoviesMatch}
               clickedContent={clickedMovieContent}
               handleClickOverlay={handleClickOverlay}
@@ -90,13 +96,14 @@ export const VyuflixCloneSearch = () => {
           )}
           {searchTVMatch && (
             <VyuflixCloneInfoCard
+              key={searchTVMatch.params.tvId}
               patchMatch={searchTVMatch}
               clickedContent={clickedTVContent}
               handleClickOverlay={handleClickOverlay}
             />
           )}
-        </>
+        </Container>
       )}
-    </Container>
+    </>
   );
 };
