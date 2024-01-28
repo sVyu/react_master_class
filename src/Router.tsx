@@ -5,6 +5,7 @@ import { DefaultTheme } from 'styled-components/dist/types';
 import { ToDoList } from './CategoryBoards/ToDoList';
 import { AnimationsWithFramer } from './AnimationsWithFramer/AnimationsWithFramer';
 import { VyuflixCloneRouter } from './VyuflixClone/VyuflixCloneRouter';
+import { RootPage } from './RootPage';
 
 interface RouterProps {
   theme?: DefaultTheme;
@@ -36,7 +37,7 @@ const Router = ({ theme, onChangeTheme }: RouterProps) => {
           }
         />
         <Route path="test" element={<div>test</div>} />
-        <Route path="/" element={<div>coming soon !!!</div>} />
+        <Route path="/" element={<RootPage />} />
       </Routes>
     </HashRouter>
   );
