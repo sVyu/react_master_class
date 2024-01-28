@@ -35,8 +35,8 @@ export const VyuflixCloneSearch = () => {
   //     getSearchPerson(keyword ?? '')
   //   );
 
-  const searchMoviesMatch = useMatch(`/vyuflix_clone/search/movies/:movieId`);
-  const searchTVMatch = useMatch(`/vyuflix_clone/search/TV/:tvId`);
+  const searchMoviesMatch = useMatch(`/vyuflix_clone/search/movies/:movieId/*`);
+  const searchTVMatch = useMatch(`/vyuflix_clone/search/TV/:tvId/*`);
   const clickedMovieContent =
     searchMoviesMatch?.params.movieId &&
     dataOfSearchMovies?.results?.find(
@@ -50,10 +50,10 @@ export const VyuflixCloneSearch = () => {
         content.id.toString() === searchTVMatch.params.tvId?.toString()
     );
   const handleClickMovieData = ({ id, data }: ContentBoxHandlerProps) => {
-    navigate(`/vyuflix_clone/search/movies/${id}`);
+    navigate(`/vyuflix_clone/search/movies/${id}/search?keyword=${keyword}`);
   };
   const handleClickTVData = ({ id, data }: ContentBoxHandlerProps) => {
-    navigate(`/vyuflix_clone/search/tv/${id}`);
+    navigate(`/vyuflix_clone/search/tv/${id}/search?keyword=${keyword}`);
   };
   const handleClickOverlay = () =>
     navigate(`/vyuflix_clone/search?keyword=${keyword}`);
