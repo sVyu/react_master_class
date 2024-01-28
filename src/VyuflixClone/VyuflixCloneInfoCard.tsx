@@ -11,48 +11,85 @@ const Overlay = styled(motion.div)`
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   opacity: 0;
-  /* z-index: 1; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
-const BigMovie = styled(motion.div)`
-  position: absolute;
-  width: 40vw;
+const ContentCard = styled(motion.div)`
+  position: relative;
+  width: 50vw;
+  max-width: 500px;
+  min-width: 400px;
   height: 80vh;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
   border-radius: 15px;
+  border: 3px solid transparent;
   overflow: hidden;
-  background-color: '#2F2F2F';
-  z-index: 2;
+  background-image: linear-gradient(#fff, #fff),
+    linear-gradient(to right, red 0%, orange 100%);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  display: flex;
+  flex-direction: column;
 `;
 
-const BigCover = styled.div`
+const BigCoverContainer = styled.div`
+  position: relative;
+  display: flex;
   width: 100%;
   background-size: cover;
   background-position: center center;
   height: 400px;
-  z-index: 10000;
+`;
+
+const RateBox = styled.div`
+  position: absolute;
+  color: yellow;
+  bottom: 20px;
+  right: 15px;
+  /* background-color: rgba(0, 0, 0, 0.5); */
+  border-radius: 5px;
+  font-family: sans-serif;
 `;
 
 const BigTitle = styled.h3`
+  position: absolute;
   color: '#fff';
-  padding: 20px;
-  font-size: 46px;
-  position: relative;
-  top: -80px;
+  width: 75%;
+  font-size: 5vmin;
+  left: 25px;
+  bottom: 15px;
+  font-family: serif;
+`;
+
+const Line = styled.div`
+  width: 100%;
+  height: 1px;
+  background-image: linear-gradient(to right, red 0%, yellow 100%);
+`;
+
+const OverviewContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  flex-grow: 1;
+  flex-shrink: 1;
+  background-color: black;
+  align-items: center;
+  justify-content: center;
 `;
 
 const BigOverview = styled.p`
+  flex-direction: column;
+  width: 100%;
+  text-align: center;
+  background-color: black;
   padding: 20px;
-  position: relative;
-  top: -80px;
   color: '#fff';
-  z-index: 1000;
 `;
 
 interface InfoCardProps {
-  patchMatch: PathMatch<'movieId'> | null;
+  patchMatch: PathMatch<string> | null;
   clickedContent: '' | IContents | undefined;
   handleClickOverlay: () => void;
 }
@@ -62,7 +99,7 @@ export const VyuflixCloneInfoCard = ({
   clickedContent,
   handleClickOverlay,
 }: InfoCardProps) => {
-  const { scrollY } = useScroll();
+  console.log('cliekdContent', clickedContent);
   return (
     <AnimatePresence>
       {patchMatch && (
@@ -71,26 +108,33 @@ export const VyuflixCloneInfoCard = ({
           exit={{ opacity: 0 }}
           animate={{ opacity: 1 }}
         >
-          <BigMovie
-            // style={{ top: scrollY.get() + 100 }}
-            style={{ top: 100 }}
+          <ContentCard
+            // style={{ top: 100 }}
             layoutId={patchMatch.params.movieId}
           >
             {clickedContent && (
               <>
-                <BigCover
+                <BigCoverContainer
                   style={{
                     backgroundImage: `linear-gradient(to top, black, transparent), url(${makeImagePath(
                       clickedContent.backdrop_path,
                       'w500'
                     )})`,
                   }}
-                />
-                <BigTitle>{clickedContent.title}</BigTitle>
-                <BigOverview>{clickedContent.overview}</BigOverview>
+                >
+                  <RateBox>
+                    ⭐{clickedContent.vote_average.toFixed(1)} (
+                    {clickedContent.vote_count})
+                  </RateBox>
+                  <BigTitle>{clickedContent.title}</BigTitle>
+                </BigCoverContainer>
+                <Line />
+                <OverviewContainer>
+                  <BigOverview>{clickedContent.overview}</BigOverview>
+                </OverviewContainer>
               </>
             )}
-          </BigMovie>
+          </ContentCard>
         </Overlay>
       )}
     </AnimatePresence>

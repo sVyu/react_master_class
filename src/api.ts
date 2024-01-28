@@ -31,6 +31,8 @@ export interface IContents {
   title?: string;
   name?: string;
   overview: string;
+  vote_average: number;
+  vote_count: number;
 }
 
 export interface IGetContentsResult {
