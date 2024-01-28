@@ -1,9 +1,10 @@
 import { AnimatePresence, Variants, motion } from 'framer-motion';
 import styled from 'styled-components';
 import { makeImagePath } from '../utils';
-import { useNavigate } from 'react-router-dom';
+import { PathMatch, useMatch, useNavigate } from 'react-router-dom';
 import { useRef, useState } from 'react';
-import { IContents } from '../api';
+import { IContents, IGetContentsResult } from '../api';
+import { VyuflixCloneInfoCard } from './VyuflixCloneInfoCard';
 
 const Container = styled.div`
   width: 100%;
@@ -126,13 +127,19 @@ interface SliderProps {
   data: IContents[];
   offset: number;
   keyValue: string;
+  handleClickContentBox: (data: IContents[]) => void;
 }
 interface buttonCustomProps {
   isGoingNext: boolean;
   offsetWidth: number;
 }
 
-export const VyuflixCloneSlider = ({ data, offset, keyValue }: SliderProps) => {
+export const VyuflixCloneSlider = ({
+  data,
+  offset,
+  keyValue,
+  handleClickContentBox,
+}: SliderProps) => {
   const navigate = useNavigate();
   const onBoxClicked = (movieId: number) => {
     navigate(`movies/${movieId}`);
@@ -161,57 +168,64 @@ export const VyuflixCloneSlider = ({ data, offset, keyValue }: SliderProps) => {
     setIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
   };
 
+  const handleClickBox = (id: number) => () => {
+    onBoxClicked(id);
+    handleClickContentBox(data);
+  };
+
   return (
-    <Container>
-      <ButtonContainer>
-        <Button onClick={handleClickLeftButton}>←</Button>
-      </ButtonContainer>
-      <Slider ref={sliderRef}>
-        <AnimatePresence
-          custom={{
-            isGoingNext: isGoingNextRef.current,
-            offsetWidth: sliderRef.current?.offsetWidth ?? 10,
-          }}
-          initial={false}
-          onExitComplete={toggleLeaving}
-        >
-          <Row
+    <>
+      <Container>
+        <ButtonContainer>
+          <Button onClick={handleClickLeftButton}>←</Button>
+        </ButtonContainer>
+        <Slider ref={sliderRef}>
+          <AnimatePresence
             custom={{
               isGoingNext: isGoingNextRef.current,
               offsetWidth: sliderRef.current?.offsetWidth ?? 10,
             }}
-            variants={rowVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            transition={{ type: 'tween', duration: 1 }}
-            key={keyValue + index}
-            $offset={offset}
+            initial={false}
+            onExitComplete={toggleLeaving}
           >
-            {data
-              ?.slice(offset * index, offset * index + offset)
-              .map((movie) => (
-                <Box
-                  layoutId={keyValue + movie.id + ''}
-                  key={keyValue + movie.id}
-                  whileHover="hover"
-                  initial="normal"
-                  variants={boxVariants}
-                  onClick={() => onBoxClicked(movie.id)}
-                  transition={{ type: 'tween' }}
-                  $bgPhoto={makeImagePath(movie.backdrop_path, 'w500')}
-                >
-                  <Info variants={infoVariants}>
-                    <h4>{movie.title || movie.name}</h4>
-                  </Info>
-                </Box>
-              ))}
-          </Row>
-        </AnimatePresence>
-      </Slider>
-      <ButtonContainer>
-        <Button onClick={handleClickRightButton}>→</Button>
-      </ButtonContainer>
-    </Container>
+            <Row
+              custom={{
+                isGoingNext: isGoingNextRef.current,
+                offsetWidth: sliderRef.current?.offsetWidth ?? 10,
+              }}
+              variants={rowVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              transition={{ type: 'tween', duration: 1 }}
+              key={keyValue + index}
+              $offset={offset}
+            >
+              {data
+                ?.slice(offset * index, offset * index + offset)
+                .map((movie) => (
+                  <Box
+                    layoutId={keyValue + movie.id + ''}
+                    key={keyValue + movie.id}
+                    whileHover="hover"
+                    initial="normal"
+                    variants={boxVariants}
+                    onClick={handleClickBox(movie.id)}
+                    transition={{ type: 'tween' }}
+                    $bgPhoto={makeImagePath(movie.backdrop_path, 'w500')}
+                  >
+                    <Info variants={infoVariants}>
+                      <h4>{movie.title || movie.name}</h4>
+                    </Info>
+                  </Box>
+                ))}
+            </Row>
+          </AnimatePresence>
+        </Slider>
+        <ButtonContainer>
+          <Button onClick={handleClickRightButton}>→</Button>
+        </ButtonContainer>
+      </Container>
+    </>
   );
 };

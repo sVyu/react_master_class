@@ -34,7 +34,7 @@ export const VyuflixCloneTV = () => {
   return (
     <Container>
       <div>OnTheAir</div>
-      <VyuflixCloneSlider
+      {/* <VyuflixCloneSlider
         data={dataOfOnTheAirTVShows?.results ?? []}
         offset={offset}
         keyValue={'OnTheAirTVShows'}
@@ -56,7 +56,7 @@ export const VyuflixCloneTV = () => {
         data={dataOfTopRatedTVShows?.results ?? []}
         offset={offset}
         keyValue={'Toprated'}
-      />
+      /> */}
     </Container>
   );
 };

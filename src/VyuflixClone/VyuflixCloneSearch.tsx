@@ -24,7 +24,7 @@ export const VyuflixCloneSearch = () => {
   return (
     <>
       <div>Movies</div>
-      <VyuflixCloneSlider
+      {/* <VyuflixCloneSlider
         data={dataOfSearchMovies?.results ?? []}
         offset={offset}
         keyValue={'SearchMovies'}
@@ -34,7 +34,7 @@ export const VyuflixCloneSearch = () => {
         data={dataOfSearchTV?.results ?? []}
         offset={offset}
         keyValue={'SearchTV'}
-      />
+      /> */}
     </>
   );
 };
