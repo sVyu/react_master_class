@@ -122,7 +122,7 @@ export const VyuflixCloneInfoCard = ({
                   }}
                 >
                   <RateBox>
-                    ⭐{clickedContent.vote_average.toFixed(1)} (
+                    ⭐{clickedContent.vote_average.toFixed(1)} (👪
                     {clickedContent.vote_count})
                   </RateBox>
                   <BigTitle>{clickedContent.title}</BigTitle>
