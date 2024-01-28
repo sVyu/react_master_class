@@ -59,10 +59,13 @@ export const GlobalStyle = createGlobalStyle`
         color:${(props) => props.theme.textColor};
         line-height: 1.2;
         transition: 0.2s linear;
+        overflow-x:hidden;
     }
-
     a {
         text-decoration:none;
         color:inherit;
+    }
+    &::-webkit-scrollbar {
+        width: 0px;
     }
 `;

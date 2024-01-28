@@ -4,6 +4,7 @@ import Coins from './routes/Coins';
 import { DefaultTheme } from 'styled-components/dist/types';
 import { ToDoList } from './CategoryBoards/ToDoList';
 import { AnimationsWithFramer } from './AnimationsWithFramer/AnimationsWithFramer';
+import { VyuflixCloneRouter } from './VyuflixClone/VyuflixCloneRouter';
 
 interface RouterProps {
   theme?: DefaultTheme;
@@ -26,6 +27,13 @@ const Router = ({ theme, onChangeTheme }: RouterProps) => {
         <Route
           path="/animations_with_framer"
           element={<AnimationsWithFramer />}
+        />
+        <Route
+          index
+          path="/vyuflix_clone/*"
+          element={
+            <VyuflixCloneRouter theme={theme} onChangeTheme={onChangeTheme} />
+          }
         />
         <Route path="test" element={<div>test</div>} />
         <Route path="/" element={<div>coming soon !!!</div>} />
