@@ -98,9 +98,9 @@ const Info = styled(motion.div)`
   border-radius: 5px;
   & > h4 {
     background-color: #cf7474;
-    padding-bottom: 1px;
+    padding: 1px 5px 3px 5px;
     text-align: center;
-    font-size: 18px;
+    font-size: 16px;
     border-radius: 5px;
   }
 `;
