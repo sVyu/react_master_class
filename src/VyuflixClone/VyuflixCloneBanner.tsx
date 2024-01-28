@@ -23,6 +23,7 @@ const ImageBox = styled.div<{ $bgPhoto: string }>`
   height: 100%;
   width: 75%;
   right: 0px;
+  top: 0;
   background-image: linear-gradient(
       to left,
       rgba(0, 0, 0, 1) 0%,
