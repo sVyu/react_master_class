@@ -5,6 +5,7 @@ import { DarkTheme } from '../theme';
 import { DefaultTheme } from 'styled-components/dist/types';
 import { VyuflixCloneTV } from './VyuflixCloneTv';
 import { VyuflixCloneSearch } from './VyuflixCloneSearch';
+import { Footer } from '../Footer';
 
 interface RouterProps {
   theme?: DefaultTheme;
@@ -24,6 +25,7 @@ export const VyuflixCloneRouter = ({ theme, onChangeTheme }: RouterProps) => {
           <Route path={path} element={<VyuflixCloneHome />} key={index} />
         ))}
       </Routes>
+      <Footer />
     </>
   );
 };
