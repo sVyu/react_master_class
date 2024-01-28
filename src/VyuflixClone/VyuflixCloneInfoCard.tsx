@@ -31,6 +31,7 @@ const ContentCard = styled(motion.div)`
   background-clip: content-box, border-box;
   display: flex;
   flex-direction: column;
+  top: 10px;
 `;
 
 const BigCoverContainer = styled.div`
