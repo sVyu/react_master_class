@@ -113,7 +113,7 @@ const ButtonContainer = styled.div`
   justify-content: center;
   align-items: center;
   background-color: black;
-  z-index: 10;
+  z-index: 1;
 `;
 
 const Button = styled.button`
