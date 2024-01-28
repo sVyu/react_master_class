@@ -16,18 +16,12 @@ import {
 import { VyuflixCloneInfoCard } from './VyuflixCloneInfoCard';
 import { useState } from 'react';
 import { VyuflixCloneBanner } from './VyuflixCloneBanner';
+import { Loader } from './Loader';
 
 const Wrapper = styled.div`
   background: black;
   width: 100vw;
   max-width: 100%;
-`;
-
-const Loader = styled.div`
-  height: 20vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 const offset = 6;
@@ -63,17 +57,9 @@ export const VyuflixCloneHome = () => {
       loadingOfLatestMovies ||
       loadingOfTopRatedMovies ||
       loadingOfUpcomingMovies ? (
-        <Loader>Loading...</Loader>
+        <Loader></Loader>
       ) : (
         <>
-          {/* <Banner
-            $bgPhoto={makeImagePath(
-              dataOfNowPlayingMovies?.results[0].backdrop_path || ''
-            )}
-          >
-            <Title>{dataOfNowPlayingMovies?.results[0].title}</Title>
-            <Overview>{dataOfNowPlayingMovies?.results[0].overview}</Overview>
-          </Banner> */}
           <VyuflixCloneBanner content={dataOfNowPlayingMovies?.results[0]} />
 
           <div>nowPlaying</div>
