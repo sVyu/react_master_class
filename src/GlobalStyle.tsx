@@ -66,12 +66,6 @@ export const GlobalStyle = createGlobalStyle`
         color:inherit;
     }
     &::-webkit-scrollbar {
-        width: 10px;
-    }
-    &::-webkit-scrollbar-thumb {
-        background-color: #2f3542;
-    }
-    &::-webkit-scrollbar-track {
-        background-color: black;
+        width: 0px;
     }
 `;
