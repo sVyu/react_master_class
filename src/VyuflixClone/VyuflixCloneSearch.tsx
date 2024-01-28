@@ -73,7 +73,7 @@ export const VyuflixCloneSearch = () => {
 
           <div>Searched Movies</div>
           <VyuflixCloneSlider
-            data={dataOfSearchMovies?.results.slice(0) ?? []}
+            data={dataOfSearchMovies?.results.slice(1) ?? []}
             offset={offset}
             keyValue={'SearchMovies'}
             handleClickContentBox={handleClickMovieData}

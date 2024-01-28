@@ -77,7 +77,11 @@ export const VyuflixCloneBanner = ({ content }: BannerProps) => {
         <Title>{content.title || content.name}</Title>
         <Overview>{content.overview ?? 'NO OVERVIEW'}</Overview>
       </InfoBox>
-      <ImageBox $bgPhoto={makeImagePath(content.backdrop_path || '')} />
+      <ImageBox
+        $bgPhoto={makeImagePath(
+          content.backdrop_path || content.poster_path || ''
+        )}
+      />
     </BannerContainer>
   ) : (
     <div></div>
