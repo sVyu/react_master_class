@@ -96,7 +96,6 @@ export const VyuflixCloneHome = () => {
 
           {bigMovieMatch && (
             <VyuflixCloneInfoCard
-              key={Date.now()}
               patchMatch={bigMovieMatch}
               clickedContent={clickedContent}
               handleClickOverlay={handleClickOverlay}
