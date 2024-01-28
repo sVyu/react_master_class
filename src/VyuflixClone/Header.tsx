@@ -59,6 +59,7 @@ const Search = styled.form`
   svg {
     height: 25px;
   }
+  cursor: pointer;
 `;
 
 const Circle = styled(motion.span)`
@@ -81,6 +82,7 @@ const Input = styled(motion.input)`
   font-size: 16px;
   background-color: transparent;
   border: 1px solid #fff;
+  cursor: pointer;
 `;
 
 const logoVariants = {
