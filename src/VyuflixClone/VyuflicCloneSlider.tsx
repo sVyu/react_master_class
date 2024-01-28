@@ -117,8 +117,12 @@ const ButtonContainer = styled.div`
 `;
 
 const Button = styled.button`
-  background-color: white;
+  background-color: transparent;
   border-radius: 50px;
+  width: 3vw;
+  height: 3vw;
+  font-size: 2vw;
+  color: white;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -176,11 +180,14 @@ export const VyuflixCloneSlider = ({
       handleClickContentBox({ id, data });
     };
 
+  const leftString = '<';
+  const rightString = '>';
+
   return (
     <>
       <Container>
         <ButtonContainer>
-          <Button onClick={handleClickLeftButton}>←</Button>
+          <Button onClick={handleClickLeftButton}>{leftString}</Button>
         </ButtonContainer>
         <Slider ref={sliderRef}>
           <AnimatePresence
@@ -229,7 +236,7 @@ export const VyuflixCloneSlider = ({
           </AnimatePresence>
         </Slider>
         <ButtonContainer>
-          <Button onClick={handleClickRightButton}>→</Button>
+          <Button onClick={handleClickRightButton}>{rightString}</Button>
         </ButtonContainer>
       </Container>
     </>
