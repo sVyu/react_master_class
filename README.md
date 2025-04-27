@@ -11,4 +11,13 @@
 </tr>
 </table>
 
-✅ click 👆 -> move to its own deployed link so you can see and explore :)
+✅ click 👆 -> move to its own deployed link so you can see and explore :)<br/>
+💻 Deployment : Github Pages<br/><br/>
+🛠 Tech Stacks
+- React
+- React Query
+- React Hook Form
+- React Router Dom
+- Recoil
+- Framer Motion
+- Styled Components
