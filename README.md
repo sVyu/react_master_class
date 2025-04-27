@@ -12,12 +12,14 @@
 </table>
 
 ✅ click 👆 -> move to its own deployed link so you can see and explore :)<br/>
-💻 Deployment : Github Pages<br/><br/>
-🛠 Tech Stacks
-- React
-- React Query
-- React Hook Form
-- React Router Dom
-- Recoil
-- Framer Motion
-- Styled Components
+💻 Deployment : Github Pages<br/>
+<details><summary>🛠 Tech Stacks</summary>
+
+- `React` v18.2.0
+- `React Query` v3.39.3
+- `React Hook Form` v7.49.3
+- `React Router Dom` v6.21.3
+- `Recoil` v0.7.7
+- `Framer Motion` v11.0.3
+- `Styled Components` v6.1.8
+</details>
